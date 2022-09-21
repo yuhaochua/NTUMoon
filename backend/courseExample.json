@@ -1,0 +1,25 @@
+{
+    "courseCode": "CZ3002",
+    "courseTitle": "Advanced Software Engineering",
+    "preRequisite": ["CZ1006", "CZ1106"],
+    "au": 3,
+    "indexes": [
+        {
+            "index": 10222,
+            "details": [
+            {"type": "lab", "timeStart": "1300", "timeEnd": "1500", "day": "mon", "location": "swlab1" },
+            {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tues", "location": "tr1" },
+            {"type": "lec", "timeStart": "1200", "timeEnd": "1400", "day": "wed", "location": "lt19" }  
+            ]
+        },
+
+        {
+            "index": 10332,
+            "details": [
+            {"type": "lab", "timeStart": "1200", "timeEnd": "1400", "day": "thurs", "location": "swlab2" },
+            {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tues", "location": "tr1" },
+            {"type": "lec", "timeStart": "1200", "timeEnd": "1400", "day": "wed", "location": "lt19" }  
+            ]
+        }
+    ]
+}
