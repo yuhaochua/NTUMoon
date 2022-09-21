@@ -9,14 +9,8 @@ const {
 //GET all courses
 router.get('/', getAllCourses)
 
-// router.get('/:id', getSingleWorkout)
-
-//POST a new course (for us to add courses, will create one for users to add later on)
+//POST a new course (add course for us not users, will create one for users to add later on)
 router.post('/', createCourse)
 
-// router.delete('/:id', deleteWorkout)
-
-
-// router.patch('/:id', updateWorkout)
 
 module.exports = router
