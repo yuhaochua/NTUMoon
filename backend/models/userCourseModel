@@ -1,0 +1,60 @@
+const mongoose = require('mongoose')
+
+const Schema = mongoose.Schema
+
+const detailsSchema = new Schema({
+    type: { //lab, lecture, tutorial
+        type: String,
+        required: true
+    },
+    timeStart: { //time it starts
+        type: String,
+        required: true
+    },
+    timeEnd: {
+        type: String,
+        required: true
+    },
+    day: {
+        type: String,
+        required: true
+    },
+    venue: {
+        type: String,
+        required: true
+    }
+})
+
+const courseSchema = new Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
+    courseCode: {
+        type: String,
+        required: true
+    },
+    courseTitle: {
+        type: String,
+        required: true
+    },
+    prerequisites: {
+        type: Array,
+        required: true
+    },
+    au: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    index: {
+        type: Number,
+        required: true
+    },
+    details: [detailsSchema]
+})
+
+module.exports = mongoose.model('UserCourse', courseSchema)

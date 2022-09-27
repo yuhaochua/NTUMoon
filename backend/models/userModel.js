@@ -65,6 +65,7 @@ userSchema.statics.login = async function(email, password) {
         throw Error('Incorrect email or password!')
     }
 
+    console.log(user)
     return user
 }
 

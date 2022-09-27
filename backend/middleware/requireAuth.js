@@ -3,7 +3,7 @@ const User = require("../models/userModel")
 
 const requireAuth = async(req, res, next) => {
     //verify authentication
-    
+    console.log(req.headers)
     const { authorization } = req.headers
 
     if (!authorization) {
