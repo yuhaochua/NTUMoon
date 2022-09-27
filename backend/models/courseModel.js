@@ -42,12 +42,16 @@ const courseSchema = new Schema({
         type: String,
         required: true
     },
-    preRequisite: {
+    prerequisites: {
         type: Array,
         required: true
     },
     au: {
         type: Number,
+        required: true
+    },
+    description: {
+        type: String,
         required: true
     },
     indexes: [indexSchema]

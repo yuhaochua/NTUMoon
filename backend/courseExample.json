@@ -1,8 +1,9 @@
 {
     "courseCode": "CZ3002",
     "courseTitle": "Advanced Software Engineering",
-    "preRequisite": ["CZ1006", "CZ1106"],
+    "prerequisites": ["CZ1006", "CZ1106"],
     "au": 3,
+    "description": "Building upon software engineering and design concepts covered in Software Engineering (CZ2006), this course aims to introduce advanced software engineering management topics to you including Quality Management, Project Management, Configuration Management, and Maintenance, according to the Software Engineering Body of Knowledge.",
     "indexes": [
         {
             "index": 10222,
