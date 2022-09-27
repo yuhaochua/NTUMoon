@@ -31,6 +31,15 @@ header a {
   padding: 20px;
   margin: 0 auto;
 }
+/* for NTUMoon and Logo alignment */
+header .container h1 {
+  display: flex;
+}
+header .container h1 div {
+  height: 50px;
+  width: 50px;
+  margin-right:20px;
+}
 
 /* homepage */
 .home {

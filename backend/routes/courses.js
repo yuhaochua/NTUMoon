@@ -5,7 +5,7 @@ const {
     createCourse,
     getAllCourses,
 } = require('../controllers/courseController')
-// const requireAuth = require('../middleware/requireAuth')
+const requireAuth = require('../middleware/requireAuth')
 
 //GET all courses
 router.get('/', getAllCourses)
@@ -16,4 +16,6 @@ router.post('/', createCourse)
 //protect api routes, routes after this requires auth
 // router.use(requireAuth)
 
+//add courses to timetable
+// router.post(('/addCourse', addCourse))
 module.exports = router
