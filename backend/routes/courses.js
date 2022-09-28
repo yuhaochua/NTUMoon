@@ -13,7 +13,7 @@ const router = express.Router()
 router.get('/', getAllCourses)
 
 //POST a new course (add course for us not users, will create one for users to add later on)
-router.post('/', createCourse)
+router.post('/createCourse', createCourse)
 
 //protect api routes, routes after this requires auth
 router.use(requireAuth)
