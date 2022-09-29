@@ -10,11 +10,6 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
     password: {
         type: String,
         required: true
@@ -22,16 +17,11 @@ const userSchema = new Schema({
 })
 
 //static signup method (to define methods in model directly)
-userSchema.statics.signup = async function(username, email, password) { //cannot use arrow function as we need to use .this
+userSchema.statics.signup = async function(username, password) { //cannot use arrow function as we need to use .this
     console.log("enter sign up")
-    //if no email or password provided
-    if (!username || !email || !password) {
+    //if no username or password provided
+    if (!username || !password) {
         throw Error('All fields must be filled!')
-    }
-
-    //check if email is valid
-    if (!validator.isEmail(email)) {
-        throw Error('Email is not valid')
     }
 
     if (!validator.isStrongPassword(password)) {
@@ -43,36 +33,31 @@ userSchema.statics.signup = async function(username, email, password) { //cannot
         throw Error('Username already in use')
     }
 
-    const existsEmail = await this.findOne({ email })
-    if (existsEmail) {
-        throw Error('Email already in use')
-    }
-
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ username, email, password: hash })
+    const user = await this.create({ username, username, password: hash })
 
     return user
 
 }
 
 //static login method
-userSchema.statics.login = async function(email, password) {
-    if (!email || !password) {
+userSchema.statics.login = async function(username, password) {
+    if (!username || !password) {
         throw Error('All fields must be filled!')
     }
 
-    const user = await this.findOne({ email })
+    const user = await this.findOne({ username })
 
     if (!user) {
-        throw Error('Incorrect email or password!')
+        throw Error('Incorrect username or password!')
     }
 
     const match = await bcrypt.compare(password, user.password)
 
     if (!match) {
-        throw Error('Incorrect email or password!')
+        throw Error('Incorrect username or password!')
     }
 
     console.log(user)

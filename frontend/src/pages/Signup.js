@@ -3,14 +3,13 @@ import { useSignup } from "../hooks/useSignup"
 
 const Signup = () => {
     const[username, setUsername] = useState('')
-    const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
     const {signup, error, isLoading} = useSignup()
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        console.log(username,email,password)
-        await signup(username, email, password)
+        console.log(username,password)
+        await signup(username, password)
     }
 
     return (
@@ -19,9 +18,6 @@ const Signup = () => {
 
             <label>Username:</label>
             <input type="text" onChange={(e) => setUsername(e.target.value)} value={username}/>
-
-            <label>Email:</label>
-            <input type="email" onChange={(e) => setEmail(e.target.value)} value={email}/>
 
             <label>Password:</label>
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password}/>
