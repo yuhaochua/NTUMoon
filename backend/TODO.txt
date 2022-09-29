@@ -1,0 +1,3 @@
+1. make a collection to store user comments. (type will be object_id, ref is User), so {user, comments, course(from course db)}....
+2. have a api for adding comments, and deleting comments ( we will do so by taking in the user's id through req._id, as we go through the require auth....)
+3. api for showing comments, react will have to be able to show comments once user added
