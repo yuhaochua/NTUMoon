@@ -36,7 +36,7 @@ userSchema.statics.signup = async function(username, password) { //cannot use ar
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
 
-    const user = await this.create({ username, username, password: hash })
+    const user = await this.create({ username, password: hash })
 
     return user
 
