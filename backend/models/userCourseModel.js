@@ -26,10 +26,6 @@ const detailsSchema = new Schema({
 })
 
 const courseSchema = new Schema({
-    user_id: {
-        type: String,
-        required: true
-    },
     courseCode: {
         type: String,
         required: true
@@ -57,4 +53,12 @@ const courseSchema = new Schema({
     details: [detailsSchema]
 })
 
-module.exports = mongoose.model('UserCourse', courseSchema)
+const userCourseSchema = new Schema({
+    user_id: {
+        type: String,
+        required: true
+    },
+    courses: [courseSchema]
+})
+
+module.exports = mongoose.model('UserCourse', userCourseSchema)

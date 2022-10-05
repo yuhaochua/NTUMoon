@@ -13,7 +13,7 @@ const getAllCourses = async (req, res) => {
 const createCourse =  async (req, res) => {
     try {
         console.log(req.body)
-        const course = await Course.create(req.body) 
+        const course = await Course.create(req.body) //will change this later on...
         res.status(200).json(course)
     } catch (error) {
         res.status(400).json({error: error.message})
@@ -25,7 +25,7 @@ const addCourse = async(req, res) => {
     try {
         console.log("enter add course")
         console.log(req.user._id)
-        const course = await UserCourse.create(req.body) 
+        const course = await UserCourse.create(req.body) //change this later on...
         res.status(200).json(course)
     } catch (error) {
         res.status(400).json({error: error.message})
