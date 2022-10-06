@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Review from './pages/Review'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Account from './pages/Account'
 import Navbar from './components/Navbar'
 
 function App() {
@@ -24,9 +25,9 @@ function App() {
             />
             <Route 
               path="/review" 
-              // element={user ? <Review /> : <Navigate to="/login" />} 
+              element={user ? <Review /> : <Navigate to="/login" />} 
               //NOT enabling the user authentication check first because i(yuhao) cannot log in
-              element={<Review />} 
+              // element={<Review />} 
             />
             <Route 
               path="/login" 
@@ -35,6 +36,10 @@ function App() {
             <Route 
               path="/signup" 
               element={!user ? <Signup /> : <Navigate to="/" />} 
+            />
+            <Route 
+              path="/account" 
+              element={user ? <Account /> : <Navigate to="/" />} 
             />
           </Routes>
         </div>
