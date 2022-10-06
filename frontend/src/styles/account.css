@@ -1,0 +1,24 @@
+.account-cont {
+    display: flex;
+    flex-direction: row;
+}
+
+.content-cont {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.carousel-cont {
+    width: 851px;
+    height: 159px;
+
+    background: #EEF3FF;
+    border-radius: 10px;
+}
+
+.carousel-text {
+    color:black;
+}
