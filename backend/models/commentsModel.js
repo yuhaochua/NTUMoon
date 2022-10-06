@@ -23,7 +23,7 @@ const commentsSchema = new Schema({ //whenever a user comments, we need to first
     commentDetails: [commentDetail], //array of obj, each obj contains the user id and comments
     reviews:[review]
 
-
+})
 
 
 module.exports = mongoose.model('Comments', commentsSchema)

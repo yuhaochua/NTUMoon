@@ -5,6 +5,11 @@ const validator = require('validator')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+    // email: {
+    //     type: String,
+    //     required: true,
+    //     unique: true
+    // },
     username: {
         type: String,
         required: true,
@@ -35,8 +40,9 @@ userSchema.statics.signup = async function(username, password) { //cannot use ar
 
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(password, salt)
-
+    console.log("usermane, password", username, password)
     const user = await this.create({ username, password: hash })
+    console.log(user)
 
     return user
 
