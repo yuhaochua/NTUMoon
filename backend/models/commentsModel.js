@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
-const detailsSchema = new Schema({
+const commentDetail = new Schema({
     user_id: { //will get this from the jwt payload after verifying token
         type: String,
         required: true
@@ -20,9 +20,9 @@ const commentsSchema = new Schema({ //whenever a user comments, we need to first
         type: String,
         required: true
     },
-    commentDetails: [detailsSchema] //array of users leaving comments
+    commentDetails: [commentDetail], //array of obj, each obj contains the user id and comments
+    reviews:[review]
 
-})
 
 
 

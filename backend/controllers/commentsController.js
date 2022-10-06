@@ -25,3 +25,5 @@ const getAllComments = async (req, res) => { //get all comments for a single cou
 //   }
 
 //here to delete comments, we will use the same logic, somehow pass in the _id of the comment in the req.params
+
+// we will get the comments, then map out the detailsSchema, then give the thing a key=comments._id
