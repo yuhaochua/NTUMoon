@@ -49,8 +49,8 @@ useEffect(() => {
                     <h1 className='h1-cont'>You have 60/140 AUs remaining</h1>
                 </div>
                 <div>Cores Remaining: 41/84</div>
-                {/* <accountCarousel></accountCarousel> */}
-                {/* <div className='carousel-cont'>
+                {/* <accountCarousel></accountCarousel>
+                <div className='carousel-cont'>
                     <Carousel afterChange={onChange}>
                         <div>
                             <div style={{color: "black"}}>Slide 1</div>

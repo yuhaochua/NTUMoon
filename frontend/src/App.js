@@ -25,9 +25,9 @@ function App() {
             />
             <Route 
               path="/review" 
-              // element={user ? <Review /> : <Navigate to="/login" />} 
+              element={user ? <Review /> : <Navigate to="/login" />} 
               //NOT enabling the user authentication check first because i(yuhao) cannot log in
-              element={<Review />} 
+              // element={<Review />} 
             />
             <Route 
               path="/login" 
@@ -39,7 +39,7 @@ function App() {
             />
             <Route 
               path="/account" 
-              element={!user ? <Account /> : <Navigate to="/" />} 
+              element={user ? <Account /> : <Navigate to="/" />} 
             />
           </Routes>
         </div>
