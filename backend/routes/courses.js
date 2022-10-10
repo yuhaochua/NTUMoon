@@ -1,8 +1,8 @@
 const express = require('express')
 const {
-    createCourse,
     getAllCourses,
     addCourse,
+    deleteCourse
 } = require('../controllers/courseController')
 const requireAuth = require('../middleware/requireAuth')
 
@@ -13,11 +13,12 @@ const router = express.Router()
 router.get('/', getAllCourses)
 
 //POST a new course (add course for us not users, will create one for users to add later on)
-router.post('/createCourse', createCourse)
+// router.post('/createCourse', createCourse)
 
 //protect api routes, routes after this requires auth
 router.use(requireAuth)
 
 //add courses to timetable
 router.post('/addCourse', addCourse)
+router.post('/deleteCourse', deleteCourse)
 module.exports = router

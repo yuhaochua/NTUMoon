@@ -1,29 +1,168 @@
 const Comments = require('../models/commentsModel')
 
 //get all courses
-const getAllComments = async (req, res) => { //get all comments for a single course code
-    const comments = await Comments.find//(need to find course code here, return the array of details, then loop through the whole thing to get comments created...)
-    // .sort({createdAt: -1}) //sort comments by time created
+const getAllComments = async (req, res) => { //take in courseCode from req.body
+    const {courseCode} = req.body
+    const comments = await Comments.find({courseCode}).sort({createdAt: -1})
     res.status(200).json(comments) //send back (response) as json
 }
 
-// delete a workout
-// const deleteWorkout = async (req, res) => {
-//     const { id } = req.params
-  
-//     if (!mongoose.Types.ObjectId.isValid(id)) {
-//       return res.status(404).json({error: 'No such workout'})
-//     }
-  
-//     const workout = await Workout.findOneAndDelete({_id: id})
-  
-//     if (!workout) {
-//       return res.status(400).json({error: 'No such workout'})
-//     }
-  
-//     res.status(200).json(workout)
-//   }
+const addComment = async(req, res) => { 
+    try {
+        const {courseCode, comments} = req.body
+        const {_id} = req.user
+        
+        const commentDetail = {user_id: _id, comments: comments}
+        console.log(commentDetail)
+        let commentDb
+        
+        const existsCourse = await Comments.findOne({ courseCode: courseCode })
+        if (existsCourse) {
+            commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { commentDetails: commentDetail}})
+        }
+        else {
+            commentDb = await Comments.create({courseCode: courseCode, commentDetails: commentDetail}) //might need to add empty array for reviews?
+            console.log("commentsAdded", commentDb)
+        }
+        
+        res.status(200).json(commentDb)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
 
-//here to delete comments, we will use the same logic, somehow pass in the _id of the comment in the req.params
+/**
+ * hello i love javadoc
+ */
+const deleteComment = async(req, res) => { //delete based in object id (created in mongodb)
+    try {
+        const {courseCode, _id} = req.body
 
-// we will get the comments, then map out the detailsSchema, then give the thing a key=comments._id
+        const existsComment = await Comments.findOne({ courseCode: courseCode, "commentDetails._id": _id })
+        if (!existsComment) {
+            throw Error('no such comment')
+        }
+
+        const deletedComment = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { commentDetails: {_id : _id}}})
+        
+        console.log(deletedComment)
+        res.status(200).json(deletedComment)
+    } catch(error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+const editComment = async(req, res) => { //we need to get object_id of comment
+    try {
+        const {courseCode, _id, comments} = req.body
+
+        const existsComment = await Comments.findOne({ courseCode: courseCode, "commentDetails._id": _id })
+        if (!existsComment) {
+            throw Error('no such comment')
+        }
+
+        const editedComment = await Comments.findOneAndUpdate({courseCode: courseCode, "commentDetails._id": _id}, {$set: { "commentDetails.$.comments": comments}})
+        
+        console.log(editedComment)
+        res.status(200).json(editedComment)
+    } catch(error) {
+        res.status(400).json({error: error.message})
+    }
+    
+}
+
+const addReview = async(req, res) => { 
+    try {
+        const {courseCode, review} = req.body
+        const {_id} = req.user
+        
+        const reviewDetail = {user_id: _id, review: review}
+        console.log(reviewDetail)
+        let commentDb
+        
+        const existsCourse = await Comments.findOne({ courseCode: courseCode })
+        if (existsCourse) {
+            const existsReview = await Comments.findOne({ courseCode: courseCode, "reviews.user_id": _id})
+            if (!existsReview) {
+                commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { reviews: reviewDetail}})
+            } else {
+                throw Error("Review Already Added")
+            }
+        }
+        else {
+            commentDb = await Comments.create({courseCode: courseCode, reviews: reviewDetail})
+            console.log("review added", commentDb)
+        }
+        
+        res.status(200).json(commentDb)
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+const deleteReview = async(req, res) => { 
+    try {
+        const {courseCode, _id} = req.body
+
+        const existsReview = await Comments.findOne({ courseCode: courseCode, "reviews._id": _id })
+        if (!existsReview) {
+            throw Error('no such review')
+        }
+
+        const deletedReview = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { reviews: {_id : _id}}})
+        
+        console.log(deletedReview)
+        res.status(200).json(deletedReview)
+    } catch(error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+const editReview = async(req, res) => { 
+    try {
+        //delete review
+        const {courseCode, _id, review} = req.body
+        const {user_id} = req.user
+
+        const existsReview = await Comments.findOne({ courseCode: courseCode, "reviews._id": _id })
+        if (!existsReview) {
+            throw Error('no such review')
+        }
+
+        const deletedReview = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { reviews: {_id : _id}}})
+        
+        //add review
+        const reviewDetail = {user_id: user_id, review: review}
+        console.log(reviewDetail)
+        let commentDb
+
+        const existsCourse = await Comments.findOne({ courseCode: courseCode })
+        if (existsCourse) {
+            const existsReview = await Comments.findOne({ courseCode: courseCode, "reviews.user_id": user_id})
+            if (!existsReview) {
+                commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { reviews: reviewDetail}})
+            } else {
+                throw Error("Review Already Added")
+            }
+        }
+        else {
+            commentDb = await Comments.create({courseCode: courseCode, reviews: reviewDetail})
+            console.log("review added", commentDb)
+        }
+
+        console.log(commentDb)
+        res.status(200).json(commentDb)
+    } catch(error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+module.exports = {
+    getAllComments,
+    addComment,
+    deleteComment,
+    editComment,
+    addReview,
+    deleteReview,
+    editReview
+}

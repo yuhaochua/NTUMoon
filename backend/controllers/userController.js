@@ -1,5 +1,6 @@
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const { default: isEmail } = require('validator/lib/isEmail')
 
 const createToken = (_id) => {
     return jwt.sign({_id}, process.env.SECRET, { expiresIn: '1h'}) //payload is the user _id from mongodb, we can use this for commenting, users own added module, etc...
@@ -7,11 +8,13 @@ const createToken = (_id) => {
 
 //signup
 const signupUser = async (req, res) => {
-    const {username,password} = req.body
+    const {email,username,password} = req.body
+    console.log(isEmail)
+    console.log(email)
     console.log(username)
     console.log(password)
     try {
-        const user = await User.signup(username, password) //signup will return user created, with _id, username, password
+        const user = await User.signup(email, username, password) //signup will return user created, with _id, username, password
 
         //create a token
         const token = createToken(user._id)
