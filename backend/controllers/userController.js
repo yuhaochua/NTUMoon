@@ -41,4 +41,33 @@ const loginUser = async (req, res) => {
     }
 }
 
+userSchema.statics.login = async function(username, password) {
+    if (!username || !password) {
+        throw Error('All fields must be filled!')
+    }
+
+    const user = await this.findOne({ username })
+
+    if (!user) {
+        throw Error('Incorrect username or password!')
+    }
+
+    const match = await bcrypt.compare(password, user.password)
+
+    if (!match) {
+        throw Error('Incorrect username or password!')
+    }
+
+    console.log(user)
+    return user
+}
+
+// const changePassword = async (req, res) => {
+//     const {old, new} = req.body
+
+//     try{
+//         const user = await
+//     }
+// }
+
 module.exports = {signupUser, loginUser}
