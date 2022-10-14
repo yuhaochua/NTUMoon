@@ -24,7 +24,7 @@ const Login = () => {
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password}/>
             <button disabled={isLoading}>Log in</button>
             <Link to="/sendEmail">
-                <button className ="resetPassword" >Reset Password</button>
+                <button className ="resetPassword" >Forgot Password?</button>
             </Link>
         
             {error && <div className="error">{error}</div>}
