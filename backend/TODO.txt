@@ -12,3 +12,5 @@
 2. edit email, username, password
 3. ZQ will come out with the algo to get the best indexes
 4. jared will tank his mdp
+
+

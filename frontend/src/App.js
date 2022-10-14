@@ -7,6 +7,8 @@ import Review from './pages/Review'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Account from './pages/Account'
+import SendEmail from'./pages/SendEmail'
+import ResetPassword from './pages/ResetPassword'
 import Navbar from './components/Navbar'
 
 function App() {
@@ -36,6 +38,14 @@ function App() {
             <Route 
               path="/signup" 
               element={!user ? <Signup /> : <Navigate to="/" />} 
+            />
+            <Route
+              path = "/sendEmail"
+              element={<SendEmail/ >}
+            />
+            <Route
+              path = "/resetPassword"
+              element={<ResetPassword/ >}
             />
             <Route 
               path="/account" 

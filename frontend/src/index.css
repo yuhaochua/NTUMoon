@@ -79,6 +79,16 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+
+div.success {
+  padding: 10px;
+  background: #d1fdd3;
+  border: 1px solid #5cb85c;
+  color: #5cb85c;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
 input.error {
   border: 1px solid var(--error);
 }
