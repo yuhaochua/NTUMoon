@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Account from "./pages/Account";
 import Navbar from "./components/Navbar";
 import Settings from "./pages/Settings";
+import Timetable from "./pages/Timetable";
 
 function App() {
     const { user } = useAuthContext();
@@ -47,6 +48,10 @@ function App() {
                         <Route
                             path="/settings"
                             element={user ? <Settings /> : <Navigate to="/" />}
+                        />
+                        <Route
+                            path="/timetable"
+                            element={user ? <Timetable /> : <Navigate to="/" />}
                         />
                     </Routes>
                 </div>

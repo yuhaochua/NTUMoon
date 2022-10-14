@@ -1,0 +1,12 @@
+.timetable{
+    
+    display: flex;
+    flex-direction: row;
+
+}
+
+.timetable-cont{
+    display: flex; 
+    width: 90%;
+
+}

@@ -26,7 +26,7 @@ const Settings = () => {
         } else if (!cfmPassword) {
             alert("Please confirm password");
             return;
-        } else if (newPassword == cfmPassword) {
+        } else if (newPassword === cfmPassword) {
             alert("Passwords dont match");
             return;
         }
