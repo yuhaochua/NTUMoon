@@ -124,7 +124,7 @@ form.signup, form.login {
 .resetPassword{
   background: none;
   margin: 0px;
-  padding: 0px;
+  padding-left: '10px';
   border-radius: 0px;
   text-decoration: none;
   color: black;
