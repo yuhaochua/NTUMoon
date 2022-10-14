@@ -121,6 +121,19 @@ form.signup, form.login {
   border-radius: 4px;
 }
 
+.resetPassword{
+  background: none;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 0px;
+  text-decoration: none;
+  color: black;
+}
+
+.resetPassword:hover {
+  color: rgb(78, 128, 202);
+}
+
 /* course review page */
 .course-code {
   color: #1F1D80;

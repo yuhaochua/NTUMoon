@@ -48,7 +48,7 @@ const ResetPassword = () => {
 
             <label>Password:</label>
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password}/>
-            <button disabled={isLoading}>Reset Password</button>
+            <button className="resetPassword" disabled={isLoading}>Reset Password</button>
             
             {error && <div className="error">{error}</div>}
             {success && <div className="success">{success}</div>}

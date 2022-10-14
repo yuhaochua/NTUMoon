@@ -24,10 +24,9 @@ const Login = () => {
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password}/>
             <button disabled={isLoading}>Log in</button>
             <Link to="/sendEmail">
-                <button style={{float:'right'}}>Reset Password</button>
+                <button className ="resetPassword" style={{display:'block', marginTop:'10px'}}>Reset Password</button>
             </Link>
-            
-            
+        
             {error && <div className="error">{error}</div>}
         </form>
     )
