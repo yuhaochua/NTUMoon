@@ -11,7 +11,7 @@ const createToken = (_id) => {
 }
 
 const createResetToken = (email) => {
-    return jwt.sign({email}, process.env.SECRET, { expiresIn: '10m'}) //jwt token for the reseting password, expires in 10minutes
+    return jwt.sign({email}, process.env.SECRET, { expiresIn: '1s'}) //jwt token for the reseting password, expires in 10minutes
 }
 
 //signup
@@ -57,6 +57,9 @@ const changePassword = async (req, res) => {
         const match = await bcrypt.compare(oldPassword, user.password)
         if (!match) {
             throw Error('Wrong Password')
+        }
+        if (!validator.isStrongPassword(password)) {
+            throw Error('Password is not strong enough')
         }
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(newPassword, salt)
@@ -113,14 +116,6 @@ const sendEmail = async(req,res) => {
             throw Error('No Such email exists')
         }
         sgMail.setApiKey(process.env.SENDGRID_API_KEY)
-        const msg = {
-            to: email, // Change to your recipient
-            from: 'NTUMoon@meowser.page', // Change to your verified sender
-            subject: 'NTUMoon Reset Password',
-            text: 'At NTUMoon, the security of your personal data and log-in details is our first priority. Hi you have requested for a password change.',
-            html: '<a href="http://localhost:3000/resetPassword">Click here to reset Password</a>',
-        }
-        const sendEmail = sgMail.send(msg)
         const token = createResetToken(email)
         const existsJwtToken = await ResetPassword.findOne({email: email})
         let emailToken
@@ -131,6 +126,20 @@ const sendEmail = async(req,res) => {
         else { //create new email, token
             emailToken = await ResetPassword.create({email: email, token: token})
         }
+        emailToken = await ResetPassword.findOne({email: email})
+        const msg = {
+            to: email, // Change to your recipient
+            from: 'NTUMoon@meowser.page', // Change to your verified sender
+            subject: 'NTUMoon Reset Password',
+            text: 'At NTUMoon, the security of your personal data and log-in details is our first priority. Hi you have requested for a password change, the link is valid for 10 minutes.',
+            html: `<p>At NTUMoon, the security of your personal data and log-in details is our first priority.\n</p>
+            <p>Hi you have requested for a password change, the link is valid for 10 minutes.\n</p>
+            <p>Please enter this token on the password reset page.\n</p>
+            <p>${emailToken.token}\n</p>
+            <a href="http://localhost:3000/resetPassword">Click here to reset Password</a>`,
+        }
+        const sendEmail = sgMail.send(msg)
+        
 
         res.status(200).json(emailToken)
     } catch (error) {
@@ -141,21 +150,26 @@ const sendEmail = async(req,res) => {
 //reset password link
 const resetPassword = async(req,res) => {
     try {
-        const {email, password} = req.body
-        const user = await User.findOne({ email: email})
-        if (!user) {
-            throw Error('No Such email exists')
-        }
-        const checkJwt = await ResetPassword.findOne({email: email})
-        if (!checkJwt) {
-            throw Error('No password reset token generated for this email')
+        const {token, password} = req.body
+        const jwtToken = await ResetPassword.findOne({ token: token})
+        if (!jwtToken) { //check if token exists
+            throw Error('No Such token exists')
         }
 
-        jwt.verify(checkJwt.token, process.env.SECRET)
+        jwt.verify(token, process.env.SECRET, function(err){
+            if(err) {
+                throw Error("Token Expired")
+            }
+        })
+
+        if (!validator.isStrongPassword(password)) {
+            throw Error('Password is not strong enough')
+        }
 
         const salt = await bcrypt.genSalt(10)
         const hash = await bcrypt.hash(password, salt)
-        const passwordChanged = await User.findOneAndUpdate({email: email}, {$set: {password:hash}})
+        const tokenEmail = await ResetPassword.findOne({token: token})
+        const passwordChanged = await User.findOneAndUpdate({email: tokenEmail.email}, {$set: {password:hash}})
         console.log("password changed", passwordChanged)
         
         res.status(200).json(passwordChanged)
