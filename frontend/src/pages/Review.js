@@ -77,7 +77,7 @@ useEffect(() => {
               <div className="review">
                 {comments && comments.map(comment => (
                   comment.commentDetails && comment.commentDetails.map(commentDetail => (
-                    <CourseReview comment={commentDetail} key={commentDetail._id} />
+                    <CourseReview comment={commentDetail} courseCode ={courseCode} key={commentDetail._id} />
                   ))                  
                 ))}
               </div>
