@@ -1,7 +1,6 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import { useAuthContext } from './hooks/useAuthContext'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useAuthContext } from "./hooks/useAuthContext";
 
-// pages & components
 import Home from './pages/Home'
 import Review from './pages/Review'
 import Login from './pages/Login'
@@ -10,9 +9,10 @@ import Account from './pages/Account'
 import SendEmail from'./pages/SendEmail'
 import ResetPassword from './pages/ResetPassword'
 import Navbar from './components/Navbar'
+import Settings from "./pages/Settings";
 
 function App() {
-  const { user } = useAuthContext()
+    const { user } = useAuthContext();
 
   return (
     <div className="App">
@@ -51,11 +51,13 @@ function App() {
               path="/account" 
               element={user ? <Account /> : <Navigate to="/account" />} 
             />
+             <Route
+              path="/settings"
+              element={user ? <Settings /> : <Navigate to="/" />}
+             />
           </Routes>
         </div>
-      </BrowserRouter>
-    </div>
-  );
+    );
 }
 
 export default App;
