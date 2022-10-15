@@ -1,9 +1,35 @@
-.timetable{
+.timetable {
     display: flex;
     flex-direction: row;
 }
-.timetable-cont{
-    width: 90%;
-    height: 600px;
 
+.timetable-cont {
+    width: 100%;
+    height: 900px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.timetable-courses {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    /* margin-left:10px; */
+    height: 720px;
+
+}
+
+.timetable ul {
+    list-style: none;
+}
+
+.timetable li {
+    padding-bottom: 10px;
+}
+
+.timetable hr {
+    height: 2px;
+    background-color: black;
 }
