@@ -63,14 +63,17 @@ useEffect(() => {
                   <CourseRating rating={rating} key={rating._id} />
                 ))
               ))}
-              <div className="row review-form">
+              <form className="row review-form">
                   <div className="col-9">
-                      <form className="row">
+                      <div className="row">
                           <input className="add-comment-field col-9" name="comment" type="text" placeholder='Add your comments here'/>
                           <input className="add-rating-field col-3" name="rating" type="number" min="0" max="5" step="0.1" placeholder='Rating:'/>
-                      </form>
-                  </div>                
-              </div>
+                      </div>
+                  </div>  
+                  <div className="col-3">
+                    <button className="btn btn-primary btn-lg">Add Review</button>
+                  </div>              
+              </form>
               <div className="review">
                 {comments && comments.map(comment => (
                   comment.commentDetails && comment.commentDetails.map(commentDetail => (
