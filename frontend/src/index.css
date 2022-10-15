@@ -13,6 +13,9 @@ body {
 }
 header {
   background: rgb(255, 255, 255);
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 header .container {
   max-width: 1400px;
@@ -27,11 +30,12 @@ header a {
   color: #333;
   text-decoration: none;
 }
-/* .pages{
-  max-width: 1400px;
+.pages{
+  /* max-width: 1400px;
   padding: 20px;
-  margin: 0 auto;
-} */
+  margin: 0 auto; */
+  margin-top: 60px;
+}
 /* for NTUMoon and Logo alignment */
 header .container h1 {
   display: flex;
@@ -43,11 +47,17 @@ header .container h1 div {
 }
 
 /* homepage */
-/* .home {
-  display: grid;
+.home {
+  /* display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 100px;
-} */
+  gap: 100px; */
+  display: flex;
+  flex-direction: row;
+}
+
+.course-detail {
+  padding: 0 10%;
+}
 
 /* login/logout form */
 label, input {

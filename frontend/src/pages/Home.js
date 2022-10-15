@@ -23,19 +23,11 @@ useEffect(() => {
 
   return (
     <div className="home">
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-2">
-            <SideNavBar></SideNavBar>
-          </div>
-          <div className="col-10">
-           <div className="course-detail">
-              {courses && courses.map(course => (
-                  <CourseList course={course} key={course._id} />
-              ))}
-            </div>
-          </div>
-        </div>
+      <SideNavBar></SideNavBar>
+      <div className="course-detail">
+        {courses && courses.map(course => (
+            <CourseList course={course} key={course._id} />
+        ))}
       </div>
     </div>
   )
