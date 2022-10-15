@@ -59,14 +59,8 @@ function App() {
               element={user ? <Settings /> : <Navigate to="/" />}
              />
              <Route
-                            path="/timetable"
-                            element={
-                                user ? (
-                                    <Timetable />
-                                ) : (
-                                    <Navigate to="/timetable" />
-                                )
-                            }
+                path="/timetable"
+                element={user ? ( <Timetable /> ) : ( <Navigate to="/timetable" />)}
               />
           </Routes>
 

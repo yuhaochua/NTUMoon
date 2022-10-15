@@ -1,24 +1,22 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-import { useCommentsContext } from "./useCommentsContext";
 
-export const useDeleteReview = () => {
-    const { dispatch } = useCommentsContext()
+export const useAddRating = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const {user} = useAuthContext()
 
-    const review = async (courseCode, _id) => {
+    const rating = async (courseCode, review) => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('http://localhost:3001/api/comments/deleteComment', {
+        const response = await fetch('http://localhost:3001/api/comments/addReview', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${user.token}`
               },
-            body: JSON.stringify({courseCode, _id})
+            body: JSON.stringify({courseCode, review})
         })
         const json = await response.json()
 
@@ -28,10 +26,9 @@ export const useDeleteReview = () => {
         }
 
         if(response.ok) {
-            dispatch({type: 'DELETE_COMMENT', payload: json})
             setIsLoading(false)
         }
 
     }
-    return { review, isLoading, error}
+    return { rating, isLoading, error}
 }

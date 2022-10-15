@@ -7,56 +7,63 @@ import { useParams } from 'react-router-dom';
 import CourseReview from '../components/courseReview'
 import CourseRating from '../components/courseRating';
 import { useAddReview } from '../hooks/useAddReview';
+import { useAddRating } from '../hooks/useAddRating';
+import { useCommentsContext } from '../hooks/useCommentsContext'; 
 
 const Review = () => {
-  const[comments, setComments] = useState('')
+  // const[comments, setComments] = useState('')
+  const {comments, dispatch} = useCommentsContext()
   const[course, setCourse] = useState('')
   const {user} = useAuthContext()
   let { courseCode } = useParams()
 
   const[userComment, setUserComment] = useState('')
   const[userRating, setUserRating] = useState('')
-  const {review, error, isLoading} = useAddReview()
+  const {review, reviewError, reviewIsLoading} = useAddReview()
+  const {rating, ratingError, ratingIsLoading} = useAddRating()
 
   const handleSubmit = async(e) => {
     e.preventDefault()
     await review(courseCode, user.username, userComment)
+    if(userRating != ''){
+      await rating(courseCode, userRating)
+    }
+    setUserComment('')
   }
 
-useEffect(() => {
-  const fetchComments = async () => {
-    console.log(user)
-    const response = await fetch('http://localhost:3001/api/comments/', {
-      method: 'POST',
-      Accept: 'application/json',
-      headers: { 
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`
-      },
-      body: JSON.stringify({
-        courseCode: courseCode
+
+  useEffect(() => {
+    const fetchComments = async () => {
+      const response = await fetch('http://localhost:3001/api/comments/', {
+        method: 'POST',
+        Accept: 'application/json',
+        headers: { 
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`
+        },
+        body: JSON.stringify({
+          courseCode: courseCode
+        })
       })
-    })
-    const json = await response.json()
+      const json = await response.json()
 
-    if (response.ok) {
-      setComments(json)
+      if (response.ok) {
+        dispatch({type: 'SET_COMMENTS', payload: json})
+      }
     }
-  }
-  fetchComments()
+    fetchComments()
 
-  const fetchCourse = async () => {
-    const response = await fetch('http://localhost:3001/api/courses/') /* will eventually want to fetch specific course id */
-    const json = await response.json()
+    const fetchCourse = async () => {
+      const response = await fetch('http://localhost:3001/api/courses/') /* will eventually want to fetch specific course id */
+      const json = await response.json()
 
-    if (response.ok) {
-      setCourse(json)
-      console.log(course)
+      if (response.ok) {
+        setCourse(json)
+      }
     }
-  }
-  fetchCourse()
+    fetchCourse()
 
-},[])
+  },[])
 
   return (
     <div className="course-page">
@@ -77,8 +84,8 @@ useEffect(() => {
               <form className="row review-form" onSubmit={handleSubmit}>
                   <div className="col-9">
                       <div className="row">
-                          <input className="add-comment-field col-9" name="comment" type="text" onChange={(e) => setUserComment(e.target.value)} placeholder='Add your comments here'/>
-                          <input className="add-rating-field col-3" name="rating" type="number" min="0" max="5" step="0.1" onChange={(e) => setUserRating(e.target.value)} placeholder='Rating:'/>
+                          <input className="add-comment-field col-9" name="comment" type="text" value = {userComment} onChange={(e) => setUserComment(e.target.value)} placeholder='Add your comments here'/>
+                          <input className="add-rating-field col-3" name="rating" type="number" min="0" max="5" step="0.1" value = {userRating} onChange={(e) => setUserRating(e.target.value)} placeholder='Rating:'/>
                       </div>
                   </div>  
                   <div className="col-3">

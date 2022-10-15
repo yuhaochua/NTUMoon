@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { useCommentsContext } from "./useCommentsContext";
 
 export const useAddReview = () => {
+    const { dispatch } = useCommentsContext()
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const {user} = useAuthContext()
-    const { dispatch } = useAuthContext()
 
     const review = async (courseCode, username, comments) => {
         setIsLoading(true)
@@ -27,6 +28,7 @@ export const useAddReview = () => {
         }
 
         if(response.ok) {
+            dispatch({type: 'ADD_COMMENT', payload: json})
             setIsLoading(false)
         }
 
