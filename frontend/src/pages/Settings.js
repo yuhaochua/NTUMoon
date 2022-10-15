@@ -15,21 +15,21 @@ const Settings = () => {
     const [newPassword, setNewPassword] = useState("");
     const [cfmPassword, checkCfmPassword] = useState("");
     const [error, setError] = useState(null)
+    const[success, setSuccess] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
-    const { dispatch } = useAuthContext();
-
+    const { user } = useAuthContext();
     const handleSubmit = async(e) => {
         e.preventDefault()
         setIsLoading(true)
         setError(null)
         if (!newPassword) {
-            alert("Please add a password")
+            setError("Please add a new password")
             return;
         } else if (!cfmPassword) {
-            alert("Please confirm password")
+            setError("Please confirm password")
             return;
         } else if (newPassword !== cfmPassword) {
-            alert("Passwords dont match")
+            setError("Passwords dont match")
             return;
         }
         
@@ -37,7 +37,7 @@ const Settings = () => {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${dispatch.token}`
+                Authorization: `Bearer ${user.token}`
               },
             body: JSON.stringify({oldPassword, newPassword})
 
@@ -54,8 +54,11 @@ const Settings = () => {
             
             // //update auth context
             // dispatch({type: 'LOGIN', payload: json})
-
+            setSuccess("Password change successful!")
             setIsLoading(false)
+            checkOldPassword("")
+            setNewPassword("")
+            checkCfmPassword("")
         }
 
 
@@ -114,6 +117,7 @@ const Settings = () => {
                     </button>
                 </div>
                 {error && <div className="error">{error}</div>}
+                {success && <div className="success">{success}</div>}
             </div>
         </form>
     );

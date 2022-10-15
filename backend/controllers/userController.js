@@ -58,7 +58,7 @@ const changePassword = async (req, res) => {
         if (!match) {
             throw Error('Wrong Password')
         }
-        if (!validator.isStrongPassword(password)) {
+        if (!validator.isStrongPassword(newPassword)) {
             throw Error('Password is not strong enough')
         }
         const salt = await bcrypt.genSalt(10)
