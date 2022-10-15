@@ -14,10 +14,10 @@ const CourseReview = ({ comment, courseCode }) => {
       e.preventDefault()
       await review(courseCode, comment._id)
     }
-    if (user.username === comment.user_id) {
+    if (user.username === comment.username) {
         return (
             <div className="indiv-review row">
-                <h5 className="comment-user">{comment.user_id}</h5>
+                <h5 className="comment-user">{comment.username}</h5>
                 <div className="col-9 row">
                     <div className="col-7">
                         <p>{comment.comments}</p>
@@ -37,7 +37,7 @@ const CourseReview = ({ comment, courseCode }) => {
     }
     return (
         <div className="indiv-review row">
-            <h5 className="comment-user">{comment.user_id}</h5>
+            <h5 className="comment-user">{comment.username}</h5>
             <div className="col-9 row">
                 <div className="col-7">
                     <p>{comment.comments}</p>

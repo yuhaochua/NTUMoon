@@ -7,7 +7,7 @@ export const useAddReview = () => {
     const {user} = useAuthContext()
     const { dispatch } = useAuthContext()
 
-    const review = async (courseCode, comments) => {
+    const review = async (courseCode, username, comments) => {
         setIsLoading(true)
         setError(null)
 
@@ -17,7 +17,7 @@ export const useAddReview = () => {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${user.token}`
               },
-            body: JSON.stringify({courseCode, comments})
+            body: JSON.stringify({courseCode, username, comments})
         })
         const json = await response.json()
 

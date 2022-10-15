@@ -20,7 +20,7 @@ const Review = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault()
-    await review(courseCode, userComment)
+    await review(courseCode, user.username, userComment)
   }
 
 useEffect(() => {
