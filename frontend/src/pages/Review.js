@@ -6,6 +6,7 @@ import  '../styles/review.css';
 import { useParams } from 'react-router-dom';
 import CourseReview from '../components/courseReview'
 import CourseRating from '../components/courseRating';
+import { useAddReview } from '../hooks/useAddReview';
 
 const Review = () => {
   const[comments, setComments] = useState('')
@@ -13,8 +14,18 @@ const Review = () => {
   const {user} = useAuthContext()
   let { courseCode } = useParams()
 
+  const[userComment, setUserComment] = useState('')
+  const[userRating, setUserRating] = useState('')
+  const {review, error, isLoading} = useAddReview()
+
+  const handleSubmit = async(e) => {
+    e.preventDefault()
+    await review(courseCode, userComment)
+  }
+
 useEffect(() => {
   const fetchComments = async () => {
+    console.log(user)
     const response = await fetch('http://localhost:3001/api/comments/', {
       method: 'POST',
       Accept: 'application/json',
@@ -63,11 +74,11 @@ useEffect(() => {
                   <CourseRating rating={rating} key={rating._id} />
                 ))
               ))}
-              <form className="row review-form">
+              <form className="row review-form" onSubmit={handleSubmit}>
                   <div className="col-9">
                       <div className="row">
-                          <input className="add-comment-field col-9" name="comment" type="text" placeholder='Add your comments here'/>
-                          <input className="add-rating-field col-3" name="rating" type="number" min="0" max="5" step="0.1" placeholder='Rating:'/>
+                          <input className="add-comment-field col-9" name="comment" type="text" onChange={(e) => setUserComment(e.target.value)} placeholder='Add your comments here'/>
+                          <input className="add-rating-field col-3" name="rating" type="number" min="0" max="5" step="0.1" onChange={(e) => setUserRating(e.target.value)} placeholder='Rating:'/>
                       </div>
                   </div>  
                   <div className="col-3">
