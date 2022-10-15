@@ -5,7 +5,18 @@ import SideNavBar from '../components/sideNavBar'
 
 const Home = () => {
   const[courses, setCourses] = useState('')
+  const[coursesDefault, setCoursesDefault] = useState('')
+  const [input, setInput] = useState('');
   const {user} = useAuthContext()
+
+  const updateInput = async (input) => {
+    const filtered = coursesDefault.filter(course => {
+      console.log(course.courseTitle)
+     return course.courseTitle.toLowerCase().includes(input.toLowerCase())
+    })
+    setInput(input);
+    setCourses(filtered);
+ }
 
 useEffect(() => {
   const fetchCourses = async () => {
@@ -15,6 +26,8 @@ useEffect(() => {
 
     if (response.ok) {
       setCourses(json)
+      setCoursesDefault(json)
+      console.log(coursesDefault)
     }
   }
   fetchCourses()
@@ -25,9 +38,18 @@ useEffect(() => {
     <div className="home">
       <SideNavBar></SideNavBar>
       <div className="course-detail">
-        {courses && courses.map(course => (
-            <CourseList course={course} key={course._id} />
-        ))}
+        <input 
+          style={{width:"20rem",background:"#F2F1F9", padding:"0.5rem", borderWidth: "1.5px", borderColor: "black", marginTop: "2rem"}}
+          key="random1"
+          value={input}
+          placeholder={"Search Course"}
+          onChange={(e) => updateInput(e.target.value)}
+        />
+        <div style={{marginTop: "2rem"}}>
+          {courses && courses.map(course => (
+              <CourseList course={course} key={course._id} />
+          ))}
+        </div>
       </div>
     </div>
   )
