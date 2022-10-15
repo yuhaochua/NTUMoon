@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const CourseList = ({ course }) => {
   return (
-    <div className="container-md">
+    <div className="container-md mt-5">
       <div className="row">
         <Link style={{ textDecoration: 'none'}} to={`/review/${course.courseCode}`} >
           <h1 className="course-code">{course.courseCode}</h1>
