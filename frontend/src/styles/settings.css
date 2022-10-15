@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     padding-left: 7% ;
+    padding-right: 7%;
 
 }
 
@@ -27,7 +28,7 @@
 .settings-line{
     margin-top: 3%;
     background-color: #CBCBCB;
-    height:1px;
+    height:2px;
 }
 .settings-fields{
     font-weight: 400;
@@ -35,5 +36,17 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+}
+.settings .btn{
+    color: white;
+    background-color: #1F1D80;
+    width:max-content;
+    
+}
+.settings .settings-btn{
+    display: flex;
+    justify-content: end;
+    margin-top: 4%;
 
 }

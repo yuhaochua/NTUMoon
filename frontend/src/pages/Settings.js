@@ -17,25 +17,26 @@ const Settings = () => {
     const [cfmPassword, checkCfmPassword] = useState("");
     const { user } = useAuthContext();
 
-    const onSubmit = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
         if (!newPassword) {
             alert("Please add a password");
             return;
         } else if (!cfmPassword) {
             alert("Please confirm password");
             return;
-        } else if (newPassword == cfmPassword) {
+        } else if (newPassword === cfmPassword) {
             alert("Passwords dont match");
             return;
         }
     };
 
     return (
-        <div className="settings">
+        <form className="settings" onSubmit={handleSubmit}>
             <SideNavBar></SideNavBar>
 
-            <div className="settings-cont col-10 form">
+            <div className="settings-cont col-10">
                 <div className="settings-title">Settings</div>
                 {/* <div className="form form-control">Enter password here</div> */}
                 <div className="settings-description">
@@ -53,6 +54,7 @@ const Settings = () => {
                         onChange={(e) => checkOldPassword(e.target.value)}
                     />
                 </div>
+
                 <div className="settings-line"></div>
                 <div className="settings-fields">
                     <label className="col-3">New Password: </label>
@@ -77,8 +79,14 @@ const Settings = () => {
                     />
                 </div>
                 <div className="settings-line"></div>
+
+                <div className="settings-btn">
+                    <button className="btn" onClick={handleSubmit}>
+                        Update Password
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
     );
 };
 
