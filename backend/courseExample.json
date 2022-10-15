@@ -1,129 +1,131 @@
-{
-    "courseCode": "CZ3002",
-    "courseTitle": "Advanced Software Engineering",
-    "prerequisites": ["CZ1006", "CZ1106"],
-    "au": 3,
-    "description": "Building upon software engineering and design concepts covered in Software Engineering (CZ2006), this course aims to introduce advanced software engineering management topics to you including Quality Management, Project Management, Configuration Management, and Maintenance, according to the Software Engineering Body of Knowledge.",
-    "indexes": [
-        {
-            "index": 10222,
-            "details": [
-            {"type": "lab", "timeStart": "1300", "timeEnd": "1500", "day": "mon", "venue": "swlab1" },
-            {"type": "tut", "timeStart": "1500", "timeEnd": "1600", "day": "mon", "venue": "tr1" },
-            {"type": "lec", "timeStart": "1200", "timeEnd": "1400", "day": "wed", "venue": "lt19" }  
-            ]
-        },
-
-        {
-            "index": 10332,
-            "details": [
-            {"type": "lab", "timeStart": "1200", "timeEnd": "1400", "day": "thu", "venue": "swlab2" },
-            {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tue", "venue": "tr1" },
-            {"type": "lec", "timeStart": "1200", "timeEnd": "1400", "day": "wed", "venue": "lt19" }  
-            ]
-        }
-    ]
-}
-
-{
-    "courseCode": "CZ3005",
-    "courseTitle": "Artificial Intelligence",
-    "prerequisites": ["CZ1107", "CZ1115"],	
-    "au": 3,
-    "description": "Computer / software engineers are involved in effective and efficient building of knowledge agent systems that satisfy the requirements of users; possibly software for intelligent embedded and intelligent information systems. General awareness of theory, knowledge, and practice in all phases of the knowledge based systems and representation techniques for problem solving are necessary for those of you who wants to get into the field artificial intelligence. These are advanced intelligent systems that are finding widespread applications in finance, banking, manufacturing industries.",
-    "indexes": [
-        {
-            "index": 10224,
-            "details": [
-            {"type": "lab", "timeStart": "1000", "timeEnd": "1200", "day": "fri", "venue": "swlab2" },
-            {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tue", "venue": "tr7" },
-            {"type": "lec", "timeStart": "0900", "timeEnd": "1100", "day": "thu", "venue": "lt5" }
-            ]
-        },
-        {
-            "index": 10348,
-            "details": [
-            {"type": "lab", "timeStart": "0900", "timeEnd": "1100", "day": "mon", "venue": "swlab1" },
-            {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tue", "venue": "tr8" },
-            {"type": "lec", "timeStart": "0900", "timeEnd": "1100", "day": "thu", "venue": "lt5" }  
-            ]
-        }
-    ]
-}
-
-{
-    "courseCode": "CZ3004",
-    "courseTitle": "Multidisciplinary Design Project",
-    "prerequisites": ["CZ1006", "CZ1106"],
-    "au": 4,
-    "description": "Throughout the MDP, students will be required to attend relevant seminars and workshops that would help them understand the process and tools for designing, developing and marketing of real-world multidisciplinary products. These include both general and technical seminars. General seminars may cover topics such as guided innovation, multidisciplinary problem solving, working effectively in engineering teams, understanding effective marketing strategies, project management, professional, ethical and moral responsibilities etc. Technical seminars and workshops will be related to specific engineering methodology and tools that can help students implement their respective ideas. These may include systems engineering and design, large-scale web systems, embedded systems development tools, etc. In their implementation, students will have to factor in appropriate considerations for public health and safety, cultural, societal factors, environmental and other constraints as well as the needs for sustainable development.",
-    "indexes": [
-        {
-            "index": 10256,
-            "details": [
-            {"type": "lab", "timeStart": "1000", "timeEnd": "1200", "day": "mon", "venue": "hwlab1" }
-            ]
-        },
-
-        {
-            "index": 10304,
-            "details": [
-            {"type": "lab", "timeStart": "0800", "timeEnd": "1000", "day": "fri", "venue": "swlab2" }  
-            ]
-        }
-    ]
-}
-
-{
-    "courseCode": "CZ4062",
-    "courseTitle": "Computer Security",
-    "prerequisites": ["CZ2005"],
-    "au": 3,
-    "description": "This course introduces computer security mechanisms at an elementary level.",
-    "indexes": [
-        {
-            "index": 10240,
-            "details": [
-            {"type": "lab", "timeStart": "1000", "timeEnd": "1200", "day": "wed", "venue": "swlab2" },
-            {"type": "tut", "timeStart": "1500", "timeEnd": "1600", "day": "tue", "venue": "tr15" },
-            {"type": "lec", "timeStart": "1400", "timeEnd": "1600", "day": "wed", "venue": "lt12" }  
-            ]
-        },
-
-        {
-            "index": 10346,
-            "details": [
-            {"type": "lab", "timeStart": "0900", "timeEnd": "1100", "day": "fri", "venue": "swlab1" },
-            {"type": "tut", "timeStart": "1200", "timeEnd": "1300", "day": "mon", "venue": "tr4" },
-            {"type": "lec", "timeStart": "1400", "timeEnd": "1600", "day": "wed", "venue": "lt12" }  
-            ]
-        }
-    ]
-}
-
-{
-    "courseCode": "CZ4031",
-    "courseTitle": "Database System Principles",
-    "prerequisites": ["CZ2007", "CZ2101"],
-    "au": 3,
-    "description": "Database management systems (DBMS) are designed to manage large and complex data sets. The fundamentals of the implementation of database management systems must be understood by all Computer Science students. This will help students to develop and design software systems utilizing databases, and equip students with the knowledge of managing data of large scale. Moreover, this should be understood by current and future business leaders so that they can offer strategic guidance based on an informed understanding of database business capabilities. This course provides the basis for achieving this goal.",
-    "indexes": [
-        {
-            "index": 10211,
-            "details": [
-            {"type": "lab", "timeStart": "1200", "timeEnd": "1400", "day": "fri", "venue": "hwlab1" },
-            {"type": "tut", "timeStart": "1100", "timeEnd": "1200", "day": "tue", "venue": "tr12" },
-            {"type": "lec", "timeStart": "1300", "timeEnd": "1500", "day": "thu", "venue": "lt8" }  
-            ]
-        },
-
-        {
-            "index": 10371,
-            "details": [
-            {"type": "lab", "timeStart": "1500", "timeEnd": "1600", "day": "thu", "venue": "swlab2" },
-            {"type": "tut", "timeStart": "1600", "timeEnd": "1700", "day": "fri", "venue": "tr10" },
-            {"type": "lec", "timeStart": "1300", "timeEnd": "1500", "day": "thu", "venue": "lt8" }  
-            ]
-        }
-    ]
-}
+[
+    {
+        "courseCode": "CZ3002",
+        "courseTitle": "Advanced Software Engineering",
+        "prerequisites": ["CZ1006", "CZ1106"],
+        "au": 3,
+        "description": "Building upon software engineering and design concepts covered in Software Engineering (CZ2006), this course aims to introduce advanced software engineering management topics to you including Quality Management, Project Management, Configuration Management, and Maintenance, according to the Software Engineering Body of Knowledge.",
+        "indexes": [
+            {
+                "index": 10222,
+                "details": [
+                {"type": "lab", "timeStart": "1300", "timeEnd": "1500", "day": "mon", "venue": "swlab1" },
+                {"type": "tut", "timeStart": "1500", "timeEnd": "1600", "day": "mon", "venue": "tr1" },
+                {"type": "lec", "timeStart": "1200", "timeEnd": "1400", "day": "wed", "venue": "lt19" }  
+                ]
+            },
+    
+            {
+                "index": 10332,
+                "details": [
+                {"type": "lab", "timeStart": "1200", "timeEnd": "1400", "day": "thu", "venue": "swlab2" },
+                {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tue", "venue": "tr1" },
+                {"type": "lec", "timeStart": "1200", "timeEnd": "1400", "day": "wed", "venue": "lt19" }  
+                ]
+            }
+        ]
+    },
+    
+    {
+        "courseCode": "CZ3005",
+        "courseTitle": "Artificial Intelligence",
+        "prerequisites": ["CZ1107", "CZ1115"],	
+        "au": 3,
+        "description": "Computer / software engineers are involved in effective and efficient building of knowledge agent systems that satisfy the requirements of users; possibly software for intelligent embedded and intelligent information systems. General awareness of theory, knowledge, and practice in all phases of the knowledge based systems and representation techniques for problem solving are necessary for those of you who wants to get into the field artificial intelligence. These are advanced intelligent systems that are finding widespread applications in finance, banking, manufacturing industries.",
+        "indexes": [
+            {
+                "index": 10224,
+                "details": [
+                {"type": "lab", "timeStart": "1000", "timeEnd": "1200", "day": "fri", "venue": "swlab2" },
+                {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tue", "venue": "tr7" },
+                {"type": "lec", "timeStart": "0900", "timeEnd": "1100", "day": "thu", "venue": "lt5" }
+                ]
+            },
+            {
+                "index": 10348,
+                "details": [
+                {"type": "lab", "timeStart": "0900", "timeEnd": "1100", "day": "mon", "venue": "swlab1" },
+                {"type": "tut", "timeStart": "1400", "timeEnd": "1500", "day": "tue", "venue": "tr8" },
+                {"type": "lec", "timeStart": "0900", "timeEnd": "1100", "day": "thu", "venue": "lt5" }  
+                ]
+            }
+        ]
+    },
+    
+    {
+        "courseCode": "CZ3004",
+        "courseTitle": "Multidisciplinary Design Project",
+        "prerequisites": ["CZ1006", "CZ1106"],
+        "au": 4,
+        "description": "Throughout the MDP, students will be required to attend relevant seminars and workshops that would help them understand the process and tools for designing, developing and marketing of real-world multidisciplinary products. These include both general and technical seminars. General seminars may cover topics such as guided innovation, multidisciplinary problem solving, working effectively in engineering teams, understanding effective marketing strategies, project management, professional, ethical and moral responsibilities etc. Technical seminars and workshops will be related to specific engineering methodology and tools that can help students implement their respective ideas. These may include systems engineering and design, large-scale web systems, embedded systems development tools, etc. In their implementation, students will have to factor in appropriate considerations for public health and safety, cultural, societal factors, environmental and other constraints as well as the needs for sustainable development.",
+        "indexes": [
+            {
+                "index": 10256,
+                "details": [
+                {"type": "lab", "timeStart": "1000", "timeEnd": "1200", "day": "mon", "venue": "hwlab1" }
+                ]
+            },
+    
+            {
+                "index": 10304,
+                "details": [
+                {"type": "lab", "timeStart": "0800", "timeEnd": "1000", "day": "fri", "venue": "swlab2" }  
+                ]
+            }
+        ]
+    },
+    
+    {
+        "courseCode": "CZ4062",
+        "courseTitle": "Computer Security",
+        "prerequisites": ["CZ2005"],
+        "au": 3,
+        "description": "This course introduces computer security mechanisms at an elementary level.",
+        "indexes": [
+            {
+                "index": 10240,
+                "details": [
+                {"type": "lab", "timeStart": "1000", "timeEnd": "1200", "day": "wed", "venue": "swlab2" },
+                {"type": "tut", "timeStart": "1500", "timeEnd": "1600", "day": "tue", "venue": "tr15" },
+                {"type": "lec", "timeStart": "1400", "timeEnd": "1600", "day": "wed", "venue": "lt12" }  
+                ]
+            },
+    
+            {
+                "index": 10346,
+                "details": [
+                {"type": "lab", "timeStart": "0900", "timeEnd": "1100", "day": "fri", "venue": "swlab1" },
+                {"type": "tut", "timeStart": "1200", "timeEnd": "1300", "day": "mon", "venue": "tr4" },
+                {"type": "lec", "timeStart": "1400", "timeEnd": "1600", "day": "wed", "venue": "lt12" }  
+                ]
+            }
+        ]
+    },
+    
+    {
+        "courseCode": "CZ4031",
+        "courseTitle": "Database System Principles",
+        "prerequisites": ["CZ2007", "CZ2101"],
+        "au": 3,
+        "description": "Database management systems (DBMS) are designed to manage large and complex data sets. The fundamentals of the implementation of database management systems must be understood by all Computer Science students. This will help students to develop and design software systems utilizing databases, and equip students with the knowledge of managing data of large scale. Moreover, this should be understood by current and future business leaders so that they can offer strategic guidance based on an informed understanding of database business capabilities. This course provides the basis for achieving this goal.",
+        "indexes": [
+            {
+                "index": 10211,
+                "details": [
+                {"type": "lab", "timeStart": "1200", "timeEnd": "1400", "day": "fri", "venue": "hwlab1" },
+                {"type": "tut", "timeStart": "1100", "timeEnd": "1200", "day": "tue", "venue": "tr12" },
+                {"type": "lec", "timeStart": "1300", "timeEnd": "1500", "day": "thu", "venue": "lt8" }  
+                ]
+            },
+    
+            {
+                "index": 10371,
+                "details": [
+                {"type": "lab", "timeStart": "1500", "timeEnd": "1600", "day": "thu", "venue": "swlab2" },
+                {"type": "tut", "timeStart": "1600", "timeEnd": "1700", "day": "fri", "venue": "tr10" },
+                {"type": "lec", "timeStart": "1300", "timeEnd": "1500", "day": "thu", "venue": "lt8" }  
+                ]
+            }
+        ]
+    }
+]
