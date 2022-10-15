@@ -1,6 +1,7 @@
 const express = require('express')
 const {
     getAllCourses,
+    getUserCourses,
     addCourse,
     deleteCourse
 } = require('../controllers/courseController')
@@ -19,6 +20,7 @@ router.get('/', getAllCourses)
 router.use(requireAuth)
 
 //add courses to timetable
+router.get('/getUserCourses', getUserCourses)
 router.post('/addCourse', addCourse)
 router.post('/deleteCourse', deleteCourse)
 module.exports = router

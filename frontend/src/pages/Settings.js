@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import SideNavBar from "../components/sideNavBar";
 import "../styles/settings.css";
-
 const contentStyle = {
     height: "160px",
     color: "#fff",
@@ -15,23 +14,55 @@ const Settings = () => {
     const [oldPassword, checkOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [cfmPassword, checkCfmPassword] = useState("");
+    const [error, setError] = useState(null)
+    const[success, setSuccess] = useState(null)
+    const [isLoading, setIsLoading] = useState(null)
     const { user } = useAuthContext();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        setIsLoading(true)
+        setError(null)
         if (!newPassword) {
-            alert("Please add a password");
+            setError("Please add a new password")
             return;
         } else if (!cfmPassword) {
-            alert("Please confirm password");
+            setError("Please confirm password")
             return;
-        } else if (newPassword === cfmPassword) {
-            alert("Passwords dont match");
+        } else if (newPassword !== cfmPassword) {
+            setError("Passwords dont match")
             return;
         }
-    };
+        
+        const response = await fetch('http://localhost:3001/api/user/changePassword', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user.token}`
+              },
+            body: JSON.stringify({oldPassword, newPassword})
 
+        })
+        const json = await response.json()
+
+        if(!response.ok) {
+            setIsLoading(false)
+            setError(json.error)
+        }
+        if(response.ok) {
+            // //save user to local storage
+            // localStorage.setItem('user', JSON.stringify(json)) //store string in local storage, json is an object with jwt and username property
+            
+            // //update auth context
+            // dispatch({type: 'LOGIN', payload: json})
+            setSuccess("Password change successful!")
+            setIsLoading(false)
+            checkOldPassword("")
+            setNewPassword("")
+            checkCfmPassword("")
+        }
+
+
+    };
     return (
         <form className="settings" onSubmit={handleSubmit}>
             <SideNavBar></SideNavBar>
@@ -85,6 +116,8 @@ const Settings = () => {
                         Update Password
                     </button>
                 </div>
+                {error && <div className="error">{error}</div>}
+                {success && <div className="success">{success}</div>}
             </div>
         </form>
     );
