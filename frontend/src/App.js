@@ -49,7 +49,7 @@ function App() {
             />
             <Route 
               path="/account" 
-              element={user ? <Account /> : <Navigate to="/" />} 
+              element={user ? <Account /> : <Navigate to="/account" />} 
             />
           </Routes>
         </div>

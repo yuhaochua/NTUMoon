@@ -7,9 +7,9 @@
   --error: #e7195a;
 }
 body {
-  background: #f1f1f1;
-  margin: 0;
-  font-family: "Poppins";
+  background: #f1f1f1 !important;
+  margin: 0 !important;
+  font-family: "Poppins" !important;
 }
 header {
   background: rgb(255, 255, 255);
