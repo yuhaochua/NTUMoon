@@ -12,7 +12,7 @@ const router = express.Router()
 //GET all courses
 router.get('/', getAllCourses)
 
-//POST a new course (add course for us not users, will create one for users to add later on)
+//POST a new course (NOT FOR REACT)
 // router.post('/createCourse', createCourse)
 
 //protect api routes, routes after this requires auth

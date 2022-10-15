@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useLogin } from "../hooks/useLogin"
+import { Link } from "react-router-dom"
 
 const Login = () => {
     const[username, setUsername] = useState('')
@@ -21,8 +22,11 @@ const Login = () => {
 
             <label>Password:</label>
             <input type="password" onChange={(e) => setPassword(e.target.value)} value={password}/>
-
             <button disabled={isLoading}>Log in</button>
+            <Link to="/sendEmail">
+                <button className ="resetPassword" >Forgot Password?</button>
+            </Link>
+        
             {error && <div className="error">{error}</div>}
         </form>
     )

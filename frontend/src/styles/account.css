@@ -1,3 +1,5 @@
+@import '~antd/dist/antd.css';
+
 .account-cont {
     display: flex;
     flex-direction: row;
@@ -8,17 +10,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 3rem;
     width: 100%;
 }
 
-.carousel-cont {
-    width: 851px;
-    height: 159px;
-
-    background: #EEF3FF;
-    border-radius: 10px;
-}
-
-.carousel-text {
-    color:black;
+.coresRemain-cont {
+    font-size: 25px;
 }

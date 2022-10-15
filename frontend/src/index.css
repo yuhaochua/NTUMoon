@@ -7,9 +7,9 @@
   --error: #e7195a;
 }
 body {
-  background: #f1f1f1;
-  margin: 0;
-  font-family: "Poppins";
+  background: #f1f1f1 !important;
+  margin: 0 !important;
+  font-family: "Poppins" !important;
 }
 header {
   background: rgb(255, 255, 255);
@@ -79,6 +79,16 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+
+div.success {
+  padding: 10px;
+  background: #d1fdd3;
+  border: 1px solid #5cb85c;
+  color: #5cb85c;
+  border-radius: 4px;
+  margin: 20px 0;
+}
+
 input.error {
   border: 1px solid var(--error);
 }
@@ -109,6 +119,19 @@ form.signup, form.login {
   padding: 20px;
   background: #fff;
   border-radius: 4px;
+}
+
+.resetPassword{
+  background: none;
+  margin: 0px;
+  padding-left: '10px';
+  border-radius: 0px;
+  text-decoration: none;
+  color: black;
+}
+
+.resetPassword:hover {
+  color: rgb(78, 128, 202);
 }
 
 /* course review page */
