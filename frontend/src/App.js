@@ -1,18 +1,21 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./hooks/useAuthContext";
 
-import Home from './pages/Home'
-import Review from './pages/Review'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Account from './pages/Account'
-import SendEmail from'./pages/SendEmail'
-import ResetPassword from './pages/ResetPassword'
-import Navbar from './components/Navbar'
+import Home from "./pages/Home";
+import Review from "./pages/Review";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Account from "./pages/Account";
+import SendEmail from "./pages/SendEmail";
+import ResetPassword from "./pages/ResetPassword";
+import Navbar from "./components/Navbar";
 import Settings from "./pages/Settings";
-
+import Timetable from "./pages/Timetable";
 function App() {
     const { user } = useAuthContext();
+
+
+   
 
   return (
     <div className="App">
@@ -55,10 +58,19 @@ function App() {
               path="/settings"
               element={user ? <Settings /> : <Navigate to="/" />}
              />
+             <Route
+                            path="/timetable"
+                            element={
+                                user ? (
+                                    <Timetable />
+                                ) : (
+                                    <Navigate to="/timetable" />
+                                )
+                            }
+              />
           </Routes>
+
         </div>
-      </BrowserRouter>
-    </div>
     );
 }
 

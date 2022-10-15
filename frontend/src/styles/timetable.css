@@ -1,0 +1,9 @@
+.timetable{
+    display: flex;
+    flex-direction: row;
+}
+.timetable-cont{
+    width: 90%;
+    height: 600px;
+
+}
