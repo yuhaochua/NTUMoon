@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
+import { useCommentsContext } from "./useCommentsContext";
 
 export const useDeleteReview = () => {
+    const { dispatch } = useCommentsContext()
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const {user} = useAuthContext()
@@ -26,6 +28,7 @@ export const useDeleteReview = () => {
         }
 
         if(response.ok) {
+            dispatch({type: 'DELETE_COMMENT', payload: json})
             setIsLoading(false)
         }
 

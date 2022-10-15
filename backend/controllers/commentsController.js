@@ -18,7 +18,8 @@ const addComment = async(req, res) => {
         
         const existsCourse = await Comments.findOne({ courseCode: courseCode })
         if (existsCourse) {
-            commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { commentDetails: commentDetail}})
+            commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { commentDetails: commentDetail}}, {new: true})
+            console.log("one commentAdded", commentDb)
         }
         else {
             commentDb = await Comments.create({courseCode: courseCode, commentDetails: commentDetail}) //might need to add empty array for reviews?
@@ -43,7 +44,7 @@ const deleteComment = async(req, res) => { //delete based in object id (created 
             throw Error('no such comment')
         }
 
-        const deletedComment = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { commentDetails: {_id : _id}}})
+        const deletedComment = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { commentDetails: {_id : _id}}}, {new: true})
         
         console.log(deletedComment)
         res.status(200).json(deletedComment)
@@ -61,7 +62,7 @@ const editComment = async(req, res) => { //we need to get object_id of comment
             throw Error('no such comment')
         }
 
-        const editedComment = await Comments.findOneAndUpdate({courseCode: courseCode, "commentDetails._id": _id}, {$set: { "commentDetails.$.comments": comments}})
+        const editedComment = await Comments.findOneAndUpdate({courseCode: courseCode, "commentDetails._id": _id}, {$set: { "commentDetails.$.comments": comments}}, {new: true})
         
         console.log(editedComment)
         res.status(200).json(editedComment)
