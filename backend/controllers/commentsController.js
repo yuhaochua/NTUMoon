@@ -9,10 +9,10 @@ const getAllComments = async (req, res) => { //take in courseCode from req.body
 
 const addComment = async(req, res) => { 
     try {
-        const {courseCode, comments} = req.body
+        const {courseCode, username, comments} = req.body
         const {_id} = req.user
         
-        const commentDetail = {user_id: _id, comments: comments}
+        const commentDetail = {user_id: _id, username:username, comments: comments}
         console.log(commentDetail)
         let commentDb
         
