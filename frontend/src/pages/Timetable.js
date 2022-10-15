@@ -7,41 +7,58 @@ const Timetable = () => {
     const events = [
         {
             id: 1,
-            text: "Event 1",
-            start: "2023-03-07T10:30:00",
-            end: "2023-03-07T13:00:00",
+            text: "CZ4031",
+            start: "2000-01-01T03:30:00",
+            end: "2000-01-01T05:30:00",
+            backColor: "#fcb711",
+            resource: "mon",
         },
         {
             id: 2,
-            text: "Event 2",
-            start: "2023-03-08T09:30:00",
-            end: "2023-03-08T11:30:00",
-            backColor: "#6aa84f",
+            text: "CZ3002",
+            start: "2000-01-01T02:00:00",
+            end: "2000-01-01T04:00:00",
+            backColor: "#f37021",
+            resource: "tue",
         },
         {
             id: 3,
-            text: "Event 3",
-            start: "2023-03-08T12:00:00",
-            end: "2023-03-08T15:00:00",
-            backColor: "#f1c232",
-        },
-        {
-            id: 4,
-            text: "Event 4",
-            start: "2023-03-06T11:30:00",
-            end: "2023-03-06T14:30:00",
-            backColor: "#cc4125",
+            text: "MDP",
+            start: "2000-01-01T00:30:00",
+            end: "2000-01-01T02:30:00",
+            backColor: "#f37021",
+            resource: "fri",
         },
     ];
 
-    const startDate = "2023-03-07";
+
 
     return (
         <div className="timetable">
             <SideNavBar></SideNavBar>
             <div className="timetable-cont">
-                <Calendar></Calendar>
+                <div className = "col-10">
+                    <Calendar events = {events}></Calendar>
+                </div>
+                <div className = "col-2 timetable-courses">
+                    <ul>
+                        <label className="pb-3">Courses Registered: </label>
+                        <li>
+                            CZ3004
+                        </li>
+                        <li>
+                            CZ3002
+                        </li>
+                        <li>
+                            CZ4062
+                        </li>
+                    </ul>
+                    <div style = {{background: 'black',}}>
+
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 };

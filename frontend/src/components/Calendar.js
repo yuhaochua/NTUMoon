@@ -13,6 +13,7 @@ class Calendar extends Component {
             heightSpec: "BusinessHoursNoScroll",
             durationBarVisible: false,
         };
+        
     }
 
     loadCalendarData() {
@@ -26,41 +27,9 @@ class Calendar extends Component {
             { name: "Saturday", id: "sat" },
             { name: "Sunday", id: "sun" },
         ];
-        const events = [
-            {
-                id: 1,
-                text: "CZ4031",
-                start: "2000-01-01T03:30:00",
-                end: "2000-01-01T05:30:00",
-                backColor: "#fcb711",
-                resource: "mon",
-            },
-            {
-                id: 2,
-                text: "CZ3002",
-                start: "2000-01-01T02:00:00",
-                end: "2000-01-01T04:00:00",
-                backColor: "#f37021",
-                resource: "tue",
-            },
-            {
-                id: 3,
-                text: "MDP",
-                start: "2000-01-01T00:30:00",
-                end: "2000-01-01T02:30:00",
-                backColor: "#f37021",
-                resource: "fri",
-            },
-        ];
+        const events = this.props.events
         this.calendar.update({ startDate, columns, events });
-        // this.time_converter(events);
     }
-    // time_converter(array) {
-    //     array.map((obj) => (
-    //         var tempArray = obj.start.str.split("T");
-    //         console.log(tempArray);
-    //         ));
-    // }
 
     componentDidMount() {
         this.loadCalendarData();
