@@ -4,7 +4,7 @@ const CourseList = ({ course }) => {
   return (
     <div className="container-md">
       <div className="row">
-        <Link style={{ textDecoration: 'none'}} to="/review">
+        <Link style={{ textDecoration: 'none'}} to={`/review/${course.courseCode}`} >
           <h1 className="course-code">{course.courseCode}</h1>
         </Link>
         <h2>{course.courseTitle}</h2>        

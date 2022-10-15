@@ -26,7 +26,7 @@ function App() {
               // element={<Home />} 
             />
             <Route 
-              path="/review" 
+              path="/review/:courseCode" 
               element={user ? <Review /> : <Navigate to="/login" />} 
               //NOT enabling the user authentication check first because i(yuhao) cannot log in
               // element={<Review />} 
