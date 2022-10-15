@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import CourseReview from '../components/courseReview'
 import CourseRating from '../components/courseRating';
 import { useAddReview } from '../hooks/useAddReview';
+import { useAddRating } from '../hooks/useAddRating';
 
 const Review = () => {
   const[comments, setComments] = useState('')
@@ -16,16 +17,17 @@ const Review = () => {
 
   const[userComment, setUserComment] = useState('')
   const[userRating, setUserRating] = useState('')
-  const {review, error, isLoading} = useAddReview()
+  const {review, reviewError, reviewIsLoading} = useAddReview()
+  const {rating, ratingError, ratingIsLoading} = useAddRating()
 
   const handleSubmit = async(e) => {
     e.preventDefault()
     await review(courseCode, user.username, userComment)
+    await rating(courseCode, userRating)
   }
 
 useEffect(() => {
   const fetchComments = async () => {
-    console.log(user)
     const response = await fetch('http://localhost:3001/api/comments/', {
       method: 'POST',
       Accept: 'application/json',
@@ -51,7 +53,6 @@ useEffect(() => {
 
     if (response.ok) {
       setCourse(json)
-      console.log(course)
     }
   }
   fetchCourse()
