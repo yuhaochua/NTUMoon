@@ -14,7 +14,11 @@ const CourseList = ({ course }) => {
       <div className="row">
         <div className="col-9">
           <p>{course.description}</p>
-          <p><strong>Prerequisites: </strong>{course.prerequisites}</p>
+          <p><strong>Prerequisites: </strong>
+            {course.prerequisites && course.prerequisites.map(prereq => (
+                <div className="prereq">{prereq}</div>
+            ))} 
+          </p>
           {/* need a button here to see the indexes, maybe go new page? */}
         </div>
         <div className="col-3 test">
