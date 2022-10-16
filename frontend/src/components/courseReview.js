@@ -36,6 +36,18 @@ const CourseReview = ({ comment, courseCode }) => {
             },
         });
     };
+
+    useEffect(() => {
+        const setRating = async () => {
+            {reviews && reviews.map(rating => {
+                if(rating.user_id === comment.user_id){
+                    setUserRating(rating)
+                }
+            })}
+        }
+        setRating()
+    }, [reviews, comment])
+
     if (user.username === comment.username) {
         return (
             <div className="indiv-review row">
@@ -45,7 +57,7 @@ const CourseReview = ({ comment, courseCode }) => {
                         <p>{comment.comments}</p>
                     </div>
                     <div className="col-3">
-                        <p className="user-rating">4.5</p>
+                        <p className="user-rating">{userRating.review}</p>
                     </div>
                     <div className="col-1">
                         <EditOutlined
@@ -118,8 +130,9 @@ const CourseReview = ({ comment, courseCode }) => {
                     <p>{comment.comments}</p>
                 </div>
                 <div className="col-3">
-                    <p className="user-rating">4.5</p>
+                    <p className="user-rating">{userRating.review}</p>
                 </div>
+                
                 <div className="col-2">
                 </div>
             </div>

@@ -147,12 +147,13 @@ const Review = () => {
                     <button className="btn btn-primary btn-lg" disabled={reviewIsLoading || ratingIsLoading}>Add Review</button>
                   </div>
                   {reviewError && <div className="error">{reviewError}</div>}      
-                  {ratingError && <div className="error">{ratingError}</div>}            
+                  {ratingError && <div className="error">{ratingError}</div>}   
+                  {addReviewError !== '' && <div className="error">{addReviewError}</div>}         
               </form>
               <div className="review">
                 {comments && comments.map(comment => (
                   comment.commentDetails && comment.commentDetails.map(commentDetail => (
-                    <CourseReview comment={commentDetail} courseCode ={courseCode} key={commentDetail._id} />
+                    <CourseReview comment={commentDetail} courseCode ={courseCode} reviews={comment.reviews} key={commentDetail._id} />
                   ))                  
                 ))}
               </div>
