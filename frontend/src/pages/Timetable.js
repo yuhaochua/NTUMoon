@@ -83,7 +83,7 @@ const Timetable = () => {
         <div className="col-2 timetable-courses">
           <ul>
             <label className="pb-3">Courses Registered: </label>
-            {registeredMods.map((mod) => (
+            {addedMods.map((mod) => (
               <li key={mod}>{mod}</li>
             ))}
           </ul>
