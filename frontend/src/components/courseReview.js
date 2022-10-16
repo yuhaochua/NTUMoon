@@ -2,15 +2,17 @@ import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import { Modal, Form, Input } from 'antd';
 import { useEffect,useState }from 'react'
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useDeleteRating } from '../hooks/useDeleteRating';
 import { useDeleteReview } from '../hooks/useDeleteReview';
 import { useEditReview } from '../hooks/useEditReview';
 
   
-const CourseReview = ({ comment, courseCode }) => {
+const CourseReview = ({ comment, courseCode, reviews }) => {
     const { user } = useAuthContext();
     const[userComment, setUserComment] = useState('')
     const[userRating, setUserRating] = useState('')
     const {review, error, isLoading} = useDeleteReview()
+    const {rating, ratingError, isLoadingRating} = useDeleteRating()
     const {reviewEdit, errorEdit, isLoadingEdit} = useEditReview()
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
@@ -18,6 +20,7 @@ const CourseReview = ({ comment, courseCode }) => {
     const handleSubmit = async(e) => {
     //   e.preventDefault()
       await review(courseCode, comment._id)
+      await rating(courseCode, userRating._id)
     }
     const handleSubmitEdit = async(e) => {
         // e.preventDefault()
@@ -36,6 +39,18 @@ const CourseReview = ({ comment, courseCode }) => {
             },
         });
     };
+
+    useEffect(() => {
+        const setRating = async () => {
+            {reviews && reviews.map(rating => {
+                if(rating.user_id === comment.user_id){
+                    setUserRating(rating)
+                }
+            })}
+        }
+        setRating()
+    }, [reviews, comment])
+
     if (user.username === comment.username) {
         return (
             <div className="indiv-review row">
@@ -45,7 +60,7 @@ const CourseReview = ({ comment, courseCode }) => {
                         <p>{comment.comments}</p>
                     </div>
                     <div className="col-3">
-                        <p className="user-rating">4.5</p>
+                        <p className="user-rating">{userRating.review}</p>
                     </div>
                     <div className="col-1">
                         <EditOutlined
@@ -118,8 +133,9 @@ const CourseReview = ({ comment, courseCode }) => {
                     <p>{comment.comments}</p>
                 </div>
                 <div className="col-3">
-                    <p className="user-rating">4.5</p>
+                    <p className="user-rating">{userRating.review}</p>
                 </div>
+                
                 <div className="col-2">
                 </div>
             </div>

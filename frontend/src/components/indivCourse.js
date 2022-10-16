@@ -58,9 +58,9 @@ const IndivCourse = ({ course, userCourses }) => {
           {!inUserCourses && <input type="button" className="add-to-tt" value="Add to Timetable" onClick={handleSubmit} disabled={isLoading || isLoadingCourses || isLoadingDel}></input>}
           {inUserCourses && <input type="button" className="remove-from-tt" value="Remove from Timetable" onClick={handleSubmit} disabled={isLoading || isLoadingCourses || isLoadingDel}></input>}
           {error && <div className="error">{error}</div>}  
-          {success && <div className="success">{success}</div>}
+          {inUserCourses && success && <div className="success">{success}</div>}
           {delError && <div className="error">{delError}</div>}  
-          {delSuccess && <div className="success">{delSuccess}</div>}
+          {!inUserCourses && delSuccess && <div className="success">{delSuccess}</div>}
         </div>
       </div>
       <hr class="solid"></hr>

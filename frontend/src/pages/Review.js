@@ -15,7 +15,7 @@ const Review = () => {
   // const[comments, setComments] = useState('')
   const {comments, dispatch} = useCommentsContext()
   const[course, setCourse] = useState('')
-  const[averageRating, setAvgRating] = useState(null)
+  const[averageRating, setAvgRating] = useState('')
   // const[userCourses, setUserCourses] = useState('')
   const {userCourses, dispatchCourses} = useUserCoursesContext()
   const {user} = useAuthContext()
@@ -23,22 +23,28 @@ const Review = () => {
 
   const[userComment, setUserComment] = useState('')
   const[userRating, setUserRating] = useState('')
+  const[addReviewError, setErrorMsg] = useState('')
   const {review, reviewError, reviewIsLoading} = useAddReview()
   const {rating, ratingError, ratingIsLoading} = useAddRating()
 
   const handleSubmit = async(e) => {
     e.preventDefault()
-    await review(courseCode, user.username, userComment)
-    if(userRating !== ''){
+    if(userComment !== '' && userRating !== ''){
+      await review(courseCode, user.username, userComment)
       await rating(courseCode, userRating)
+      setUserComment('')
+      setErrorMsg('')
+      setUserRating('')
     }
-    setUserComment('')
+    else {
+      setErrorMsg('Both comment and rating have to be filled!')
+    }
   }
 
 
   useEffect(() => {
     const fetchComments = async () => {
-      const response = await fetch('http://localhost:3001/api/comments/', {
+        const response = await fetch('http://localhost:3001/api/comments/', {
         method: 'POST',
         Accept: 'application/json',
         headers: { 
@@ -86,24 +92,32 @@ const Review = () => {
     }
     fetchUserCourses()
 
+  },[courseCode, dispatch, dispatchCourses, user])
+
+  useEffect(() => {
     const calculateAvgRating = async () => {
       let ratingSum = 0
       let i = 0
-      {comments && comments.map(comment => {
+      comments && comments.map(comment => (
         comment.reviews && comment.reviews.map(rating => {
           ratingSum += rating.review
           i++
         })
-      })}
+      ))
       let avgRating = ratingSum / i
-      setAvgRating(avgRating)
-      console.log(avgRating)
-      console.log(ratingSum)
-      console.log(averageRating)
+      if(i>0){
+        setAvgRating(avgRating)
+      }
+      console.log("avg rating: ", avgRating)
+      console.log("ratingSum: ", ratingSum)
+      console.log("average rating: ", averageRating)
     }
-    calculateAvgRating()
 
-  },[])
+    if(comments){
+      setAvgRating('')
+      calculateAvgRating()
+    }
+  },[comments, averageRating])
 
   return (
     <div className="course-page">
@@ -121,7 +135,7 @@ const Review = () => {
                   <CourseRating rating={avgRating} key={rating._id} />
                 ))
               ))} */}
-              {averageRating && <CourseRating rating={averageRating} />}
+              {averageRating !=='' && <CourseRating rating={averageRating} />}
               <form className="row review-form" onSubmit={handleSubmit}>
                   <div className="col-9">
                       <div className="row">
@@ -133,12 +147,13 @@ const Review = () => {
                     <button className="btn btn-primary btn-lg" disabled={reviewIsLoading || ratingIsLoading}>Add Review</button>
                   </div>
                   {reviewError && <div className="error">{reviewError}</div>}      
-                  {ratingError && <div className="error">{ratingError}</div>}            
+                  {ratingError && <div className="error">{ratingError}</div>}   
+                  {addReviewError !== '' && <div className="error">{addReviewError}</div>}         
               </form>
               <div className="review">
                 {comments && comments.map(comment => (
                   comment.commentDetails && comment.commentDetails.map(commentDetail => (
-                    <CourseReview comment={commentDetail} courseCode ={courseCode} key={commentDetail._id} />
+                    <CourseReview comment={commentDetail} courseCode ={courseCode} reviews={comment.reviews} key={commentDetail._id} />
                   ))                  
                 ))}
               </div>
