@@ -10,6 +10,7 @@ export const useAddToTimetable = () => {
     const mod = async (courseCode, index) => {
         setIsLoading(true)
         setError(null)
+        setSuccess(null)
 
         const response = await fetch('http://localhost:3001/api/courses/addCourse', {
             method: 'POST',
@@ -28,7 +29,7 @@ export const useAddToTimetable = () => {
 
         if(response.ok) {
             setIsLoading(false)
-            setSuccess(true)
+            setSuccess("Course added successfully!")
         }
 
     }
