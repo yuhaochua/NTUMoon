@@ -1,16 +1,37 @@
 import { useAddToTimetable } from "../hooks/useAddToTimetable"
+import { useAddUserCourse } from "../hooks/useAddUserCourse"
+import { useDeleteFromTimetable } from "../hooks/useDeleteFromTimetable"
+import { useEffect, useState } from "react"
 
-const IndivCourse = ({ course }) => {
+const IndivCourse = ({ course, userCourses }) => {
     const {mod, error, isLoading, success} = useAddToTimetable()
-  
+    const {dmod, delError, isLoadingDel, delSuccess} = useDeleteFromTimetable()
+    const {userCourse, coursesError, isLoadingCourses} = useAddUserCourse()
+    const [inUserCourses, setInUserCourses] = useState(false)
+
     const handleSubmit = async(e) => {
-      e.preventDefault()
-      await mod(course.courseCode, course.indexes[0].index)
-      if(!error){
-        var elem = document.getElementById("addTT")
-        elem.value = "Added!"
-      }
+      e.preventDefault()      
+      inUserCourses ? await dmod(course.courseCode, course.indexes[0].index) : await mod(course.courseCode, course.indexes[0].index)
+      await userCourse()
+
+      setInUserCourses(!inUserCourses)
+      // if(!error){
+      //   var elem = document.getElementById("addTT")
+      //   elem.value = "Added!"
+      // }
     }
+
+    useEffect(() => {
+      userCourses && userCourses.map(obj => (
+        obj && obj.map(usrCourse => {
+          console.log(usrCourse.courseCode)
+          if(course.courseCode === usrCourse.courseCode) {
+            setInUserCourses(true)
+          }
+        })
+      ))
+    },[])
+
   return (
     <div className="container-md mt-5">
       <div className="row">
@@ -33,10 +54,13 @@ const IndivCourse = ({ course }) => {
         <div className="col-3 test">
           <p><strong>Exam Date</strong></p>
           {/* <p>{course.examDate}</p> need backend to include examDate */}
-          <p>26 November 2022</p>
-          <input type="button" id="addTT" className="add-to-tt" value="Add to Timetable" onClick={handleSubmit} disabled={isLoading}></input>
+          <p>26 November 2022</p>          
+          {!inUserCourses && <input type="button" className="add-to-tt" value="Add to Timetable" onClick={handleSubmit} disabled={isLoading || isLoadingCourses || isLoadingDel}></input>}
+          {inUserCourses && <input type="button" className="remove-from-tt" value="Remove from Timetable" onClick={handleSubmit} disabled={isLoading || isLoadingCourses || isLoadingDel}></input>}
           {error && <div className="error">{error}</div>}  
           {success && <div className="success">{success}</div>}
+          {delError && <div className="error">{delError}</div>}  
+          {delSuccess && <div className="success">{delSuccess}</div>}
         </div>
       </div>
       <hr class="solid"></hr>

@@ -44,6 +44,21 @@
   color: #1511f1;
 }
 
+.remove-from-tt {
+  background: transparent;
+  border-color: black;
+  color: black;
+  font-family: "Poppins";
+  width : 100%;
+  border-radius: 5pt;
+}
+
+.remove-from-tt:hover {
+  border-width: 2pt;
+  border-color: #f13611;
+  color: #f13611;
+}
+
 .mod-reviews {
   font-family: 'Poppins';
 }

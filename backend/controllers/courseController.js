@@ -63,7 +63,7 @@ const addCourse = async(req, res) => {
         console.log(course)
         let courseAdded
         if (existsAddedCourse) {
-            courseAdded = await UserCourse.findOneAndUpdate({user_id: _id}, {$push: { courses: course}})
+            courseAdded = await UserCourse.findOneAndUpdate({user_id: _id}, {$push: { courses: course}}, {new: true})
         }
         else {
             courseAdded = await UserCourse.create({user_id: _id, courses: course})
@@ -89,7 +89,7 @@ const deleteCourse = async(req, res) => {
         if (!existsCourseCode) {
             throw Error('no such course')
         }
-        const deleted = await UserCourse.findOneAndUpdate({user_id: _id}, {$pull: { courses: course}})
+        const deleted = await UserCourse.findOneAndUpdate({user_id: _id}, {$pull: { courses: course}}, {new: true})
         console.log(deleted)
         res.status(200).json(deleted)
     } catch(error) {

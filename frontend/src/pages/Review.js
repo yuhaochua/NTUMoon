@@ -9,11 +9,15 @@ import CourseRating from '../components/courseRating';
 import { useAddReview } from '../hooks/useAddReview';
 import { useAddRating } from '../hooks/useAddRating';
 import { useCommentsContext } from '../hooks/useCommentsContext'; 
+import { useUserCoursesContext } from '../hooks/useUserCoursesContext';
 
 const Review = () => {
   // const[comments, setComments] = useState('')
   const {comments, dispatch} = useCommentsContext()
   const[course, setCourse] = useState('')
+  const[averageRating, setAvgRating] = useState(null)
+  // const[userCourses, setUserCourses] = useState('')
+  const {userCourses, dispatchCourses} = useUserCoursesContext()
   const {user} = useAuthContext()
   let { courseCode } = useParams()
 
@@ -49,6 +53,7 @@ const Review = () => {
 
       if (response.ok) {
         dispatch({type: 'SET_COMMENTS', payload: json})
+        console.log(json)
       }
     }
     fetchComments()
@@ -63,6 +68,41 @@ const Review = () => {
     }
     fetchCourse()
 
+    const fetchUserCourses = async () => {
+      const response = await fetch('http://localhost:3001/api/courses/getUserCourses', {
+        method: 'GET',
+        Accept: 'application/json',
+        headers: { 
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`
+        }
+      })
+      const json = await response.json()
+
+      if (response.ok) {
+        dispatchCourses({type: 'FETCH_COURSES', payload: json})
+        console.log(json)
+      }
+    }
+    fetchUserCourses()
+
+    const calculateAvgRating = async () => {
+      let ratingSum = 0
+      let i = 0
+      {comments && comments.map(comment => {
+        comment.reviews && comment.reviews.map(rating => {
+          ratingSum += rating.review
+          i++
+        })
+      })}
+      let avgRating = ratingSum / i
+      setAvgRating(avgRating)
+      console.log(avgRating)
+      console.log(ratingSum)
+      console.log(averageRating)
+    }
+    calculateAvgRating()
+
   },[])
 
   return (
@@ -72,15 +112,16 @@ const Review = () => {
           <div>
             <div className="course-detail">
               {course && course.map(course => (
-                courseCode === course.courseCode ? <IndivCourse course={course} key={course._id} /> : null
+                courseCode === course.courseCode ? <IndivCourse course={course} userCourses={userCourses} key={course._id} /> : null
               ))}
             </div>
             <div className="course-reviews container">
-              {comments && comments.map(comment => (
+              {/* {comments && comments.map(comment => (
                 comment.reviews && comment.reviews.map(rating => (
-                  <CourseRating rating={rating} key={rating._id} />
+                  <CourseRating rating={avgRating} key={rating._id} />
                 ))
-              ))}
+              ))} */}
+              {averageRating && <CourseRating rating={averageRating} />}
               <form className="row review-form" onSubmit={handleSubmit}>
                   <div className="col-9">
                       <div className="row">
