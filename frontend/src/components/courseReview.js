@@ -1,19 +1,29 @@
-import {DeleteOutlined} from '@ant-design/icons';
-import { Modal } from 'antd';
+import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
+import { Modal, Form, Input } from 'antd';
 import { useEffect,useState }from 'react'
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useDeleteReview } from '../hooks/useDeleteReview';
+import { useEditReview } from '../hooks/useEditReview';
 
+  
 const CourseReview = ({ comment, courseCode }) => {
     const { user } = useAuthContext();
     const[userComment, setUserComment] = useState('')
     const[userRating, setUserRating] = useState('')
     const {review, error, isLoading} = useDeleteReview()
+    const {reviewEdit, errorEdit, isLoadingEdit} = useEditReview()
+    const [open, setOpen] = useState(false);
+    const [form] = Form.useForm();
   
     const handleSubmit = async(e) => {
       e.preventDefault()
       await review(courseCode, comment._id)
     }
+    const handleSubmitEdit = async(e) => {
+        // e.preventDefault()
+        console.log(userComment)
+        await reviewEdit(courseCode, comment._id, userComment)
+      }
     if (user.username === comment.username) {
         return (
             <div className="indiv-review row">
@@ -25,7 +35,56 @@ const CourseReview = ({ comment, courseCode }) => {
                     <div className="col-3">
                         <p className="user-rating">4.5</p>
                     </div>
-                    <div className="col-2">
+                    <div className="col-1">
+                        <EditOutlined
+                            onClick={() => {
+                                setOpen(true);
+                            }}
+                            style={{color: "black"}}
+                        />
+                        <Modal
+                            open={open}
+                            title="Edit Comment"
+                            okText="Edit"
+                            cancelText="Cancel"
+                            onCancel={() => {
+                                setOpen(false);
+                            }}
+                            onOk={() => {
+                                handleSubmitEdit();
+                                console.log("hiii")
+                                setOpen(false);
+                            }}
+                        >
+                            <Form
+                                form={form}
+                                layout="vertical"
+                                name="form_in_modal"
+                                initialValues={{
+                                    modifier: 'public',
+                                }}
+                            >
+                                <Form.Item
+                                    name="editComment"
+                                    label="Edit Comment"
+                                    className="collection-create-form_last-form-item"
+                                    rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input the your edited comment!',
+                                    },
+                                    ]}
+                                >
+                                    <input className="add-comment-field" name="comment" type="text" onChange={(e) => setUserComment(e.target.value)} placeholder='Add your comments here'/>
+                                    {/* <Input.TextArea 
+                                        allowClear
+                                        onValuesChange={(e) => setUserComment(e.target.value)}
+                                    /> */}
+                                </Form.Item>
+                            </Form>
+                        </Modal>
+                    </div>
+                    <div className="col-1">
                         <DeleteOutlined
                             onClick={handleSubmit}
                             style={{color: "red"}}
