@@ -16,7 +16,7 @@ const CourseReview = ({ comment, courseCode }) => {
     const [form] = Form.useForm();
   
     const handleSubmit = async(e) => {
-      e.preventDefault()
+    //   e.preventDefault()
       await review(courseCode, comment._id)
     }
     const handleSubmitEdit = async(e) => {
@@ -24,6 +24,18 @@ const CourseReview = ({ comment, courseCode }) => {
         console.log(userComment)
         await reviewEdit(courseCode, comment._id, userComment)
       }
+
+    const onDelete = () => {
+        Modal.confirm({
+            title: "Are you sure, you want to delete this comment?",
+            okText: "Yes",
+            okType: "danger",
+            onOk: () => {
+                handleSubmit();
+                console.log("entered on delete")
+            },
+        });
+    };
     if (user.username === comment.username) {
         return (
             <div className="indiv-review row">
@@ -52,7 +64,7 @@ const CourseReview = ({ comment, courseCode }) => {
                             }}
                             onOk={() => {
                                 handleSubmitEdit();
-                                console.log("hiii")
+                                console.log("entered onOK")
                                 setOpen(false);
                             }}
                         >
@@ -86,7 +98,11 @@ const CourseReview = ({ comment, courseCode }) => {
                     </div>
                     <div className="col-1">
                         <DeleteOutlined
-                            onClick={handleSubmit}
+                            // onClick={handleSubmit}
+                            onClick={() => {
+                                console.log("hihi")
+                                onDelete();
+                              }}
                             style={{color: "red"}}
                         />
                     </div>
