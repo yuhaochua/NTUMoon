@@ -23,6 +23,7 @@ const getUserCourses = async (req, res) => {
             try{
                 const {courseCode, index} = listUserCourses.courses[i]
                 const course = await Course.findOne({courseCode: courseCode})
+                console.log("course.indexesssssssssssssssssssssssss", listUserCourses.courses[i])
                 let courseDetails = course.indexes.find(data => data.index == index).details
                 var userCourseInfo = {
                     courseCode: courseCode,
@@ -38,7 +39,7 @@ const getUserCourses = async (req, res) => {
                 listUserCourseInfo.push(userCourseInfo)
             }
             catch(error) {
-                res.status(400).json({error: error.message})
+                return res.status(400).json({error: error.message})
             }
         }
         console.log(listUserCourseInfo)
