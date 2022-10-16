@@ -2,15 +2,17 @@ import {DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import { Modal, Form, Input } from 'antd';
 import { useEffect,useState }from 'react'
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useDeleteRating } from '../hooks/useDeleteRating';
 import { useDeleteReview } from '../hooks/useDeleteReview';
 import { useEditReview } from '../hooks/useEditReview';
 
   
-const CourseReview = ({ comment, courseCode }) => {
+const CourseReview = ({ comment, courseCode, reviews }) => {
     const { user } = useAuthContext();
     const[userComment, setUserComment] = useState('')
     const[userRating, setUserRating] = useState('')
     const {review, error, isLoading} = useDeleteReview()
+    const {rating, ratingError, isLoadingRating} = useDeleteRating()
     const {reviewEdit, errorEdit, isLoadingEdit} = useEditReview()
     const [open, setOpen] = useState(false);
     const [form] = Form.useForm();
@@ -18,6 +20,7 @@ const CourseReview = ({ comment, courseCode }) => {
     const handleSubmit = async(e) => {
     //   e.preventDefault()
       await review(courseCode, comment._id)
+      await rating(courseCode, userRating._id)
     }
     const handleSubmitEdit = async(e) => {
         // e.preventDefault()

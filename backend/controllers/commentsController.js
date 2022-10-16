@@ -85,7 +85,7 @@ const addReview = async(req, res) => {
         if (existsCourse) {
             const existsReview = await Comments.findOne({ courseCode: courseCode, "reviews.user_id": _id})
             if (!existsReview) {
-                commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { reviews: reviewDetail}})
+                commentDb = await Comments.findOneAndUpdate({courseCode: courseCode}, {$push: { reviews: reviewDetail}}, {new: true})
             } else {
                 throw Error("Review Already Added")
             }
@@ -110,7 +110,7 @@ const deleteReview = async(req, res) => {
             throw Error('no such review')
         }
 
-        const deletedReview = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { reviews: {_id : _id}}})
+        const deletedReview = await Comments.findOneAndUpdate({courseCode: courseCode}, {$pull: { reviews: {_id : _id}}}, {new: true})
         
         console.log(deletedReview)
         res.status(200).json(deletedReview)
