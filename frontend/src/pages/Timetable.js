@@ -1,5 +1,5 @@
 import SideNavBar from "../components/sideNavBar"
-import React, { Component } from "react"
+import React, { Component, useState, useEffect } from "react"
 import { DayPilot, DayPilotCalendar } from "@daypilot/daypilot-lite-react"
 import "../styles/timetable.css"
 import Calendar from "../components/Calendar"
@@ -7,7 +7,36 @@ import { useParams } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
 const Timetable = () => {
   const { user } = useAuthContext()
-  let { type, timeStart, timeEnd, day, venue, id } = useParams()
+  const [courses, setCourses] = useState("")
+
+  var raw_json = []
+  // let { type, timeStart, timeEnd, day, venue, id } = useParams()
+
+  useEffect(() => {
+    const fetchMods = async () => {
+      const response = await fetch(
+        "http://localhost:3001/api/courses/getUserCourses",
+        {
+          method: "GET",
+          Accept: "application/json",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      )
+      const json = await response.json()
+
+      if (response.ok) {
+        setCourses(json)
+      } else {
+        console.log("error")
+      }
+    }
+    fetchMods()
+  }, [])
+
+  console.log(courses[0].courseCode)
   // const fetchMods = async () => {
   //   const response = await fetch(
   //     "http://localhost:3001/api/courses/getUserCourses",
@@ -18,26 +47,26 @@ const Timetable = () => {
   //         "Content-Type": "application/json",
   //         Authorization: `Bearer ${user.token}`,
   //       },
-  //       // body: JSON.stringify({
-  //       //   type: type,
-  //       //   timeStart: timeStart,
-  //       //   timeEnd: timeEnd,
-  //       //   day: day,
-  //       //   venue: venue,
-  //       //   _id: id,
-  //       // }),
   //     }
   //   )
   //   const json = await response.json()
-  //   console.log(json)
 
   //   if (response.ok) {
-  //     console.log(json)
+  //     setCourses(json)
   //   } else {
   //     console.log("error")
   //   }
   // }
   // fetchMods()
+  // console.log(courses)
+  // raw_json = fetchMods()
+  // const printAddress = () => {
+  //   fetchMods().then((a) => {
+  //     raw_events.push(a)
+  //   })
+  // }
+  // printAddress()
+  // console.log(raw_json)
 
   const events = [
     {
@@ -72,11 +101,6 @@ const Timetable = () => {
       addedMods.push(obj.text)
     }
   })
-
-  // const clickEvent = async () => {
-  //   console.log(events.id)
-  //   console.log("hello")
-  // }
 
   return (
     <div className="timetable">
