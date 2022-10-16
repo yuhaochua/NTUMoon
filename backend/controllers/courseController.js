@@ -41,6 +41,7 @@ const getUserCourses = async (req, res) => {
                 res.status(400).json({error: error.message})
             }
         }
+        console.log(listUserCourseInfo)
         res.status(200).json(listUserCourseInfo) //send back (response) as json
     } catch(error) {
         res.status(400).json({error: error.message})

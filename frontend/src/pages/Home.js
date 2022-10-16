@@ -1,7 +1,8 @@
-import { useEffect,useState }from 'react'
+import { useEffect,useState } from 'react'
 import { useAuthContext } from "../hooks/useAuthContext"
 import CourseList from '../components/courseList'
 import SideNavBar from '../components/sideNavBar'
+import "../styles/home.css";
 
 const Home = () => {
   const[courses, setCourses] = useState('')
