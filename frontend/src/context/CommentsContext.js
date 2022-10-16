@@ -16,6 +16,10 @@ export const commentsReducer = (state, action) => {
             return {
                 comments: [action.payload]
             }
+        case 'EDIT_COMMENT':
+            return {
+                comments: [action.payload]
+            }
         default:
             return state
     }
