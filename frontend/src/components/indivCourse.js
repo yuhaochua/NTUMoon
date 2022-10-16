@@ -5,7 +5,7 @@ const IndivCourse = ({ course }) => {
   
     const handleSubmit = async(e) => {
       e.preventDefault()
-      await mod(course.courseCode, course.indexes[0])
+      await mod(course.courseCode, course.indexes[0].index)
       if(!error){
         var elem = document.getElementById("addTT")
         elem.value = "Added!"
