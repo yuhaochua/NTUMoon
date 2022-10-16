@@ -8,36 +8,36 @@ import { useAuthContext } from "../hooks/useAuthContext"
 const Timetable = () => {
   const { user } = useAuthContext()
   let { type, timeStart, timeEnd, day, venue, id } = useParams()
-  const fetchComments = async () => {
-    const response = await fetch(
-      "http://localhost:3001/api/courses/getUserCourses",
-      {
-        method: "POST",
-        Accept: "application/json",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          type: type,
-          timeStart: timeStart,
-          timeEnd: timeEnd,
-          day: day,
-          venue: venue,
-          id: id,
-        }),
-      }
-    )
-    const json = await response.json()
-    console.log(json)
+  // const fetchMods = async () => {
+  //   const response = await fetch(
+  //     "http://localhost:3001/api/courses/getUserCourses",
+  //     {
+  //       method: "GET",
+  //       Accept: "application/json",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${user.token}`,
+  //       },
+  //       // body: JSON.stringify({
+  //       //   type: type,
+  //       //   timeStart: timeStart,
+  //       //   timeEnd: timeEnd,
+  //       //   day: day,
+  //       //   venue: venue,
+  //       //   _id: id,
+  //       // }),
+  //     }
+  //   )
+  //   const json = await response.json()
+  //   console.log(json)
 
-    if (response.ok) {
-      console.log(json)
-    } else {
-      console.log("error")
-    }
-  }
-  fetchComments()
+  //   if (response.ok) {
+  //     console.log(json)
+  //   } else {
+  //     console.log("error")
+  //   }
+  // }
+  // fetchMods()
 
   const events = [
     {
@@ -73,12 +73,22 @@ const Timetable = () => {
     }
   })
 
+  // const clickEvent = async () => {
+  //   console.log(events.id)
+  //   console.log("hello")
+  // }
+
   return (
     <div className="timetable">
       <SideNavBar></SideNavBar>
       <div className="timetable-cont">
         <div className="col-10">
-          <Calendar events={events}></Calendar>
+          <Calendar
+            events={events}
+            onEventClick={(args) => {
+              console.log(args.e.text())
+            }}
+          ></Calendar>
         </div>
         <div className="col-2 timetable-courses">
           <ul>
