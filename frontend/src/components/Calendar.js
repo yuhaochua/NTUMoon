@@ -17,7 +17,6 @@ class Calendar extends Component {
       },
     }
   }
-
   loadCalendarData() {
     const startDate = "2000-01-01"
     const columns = [
@@ -29,6 +28,7 @@ class Calendar extends Component {
       { name: "Saturday", id: "sat" },
       { name: "Sunday", id: "sun" },
     ]
+
     const events = this.props.events
     this.calendar.update({ startDate, columns, events })
   }

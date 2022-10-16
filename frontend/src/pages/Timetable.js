@@ -5,8 +5,17 @@ import Calendar from "../components/Calendar"
 import { useAuthContext } from "../hooks/useAuthContext"
 const Timetable = () => {
   const { user } = useAuthContext()
-  const [courses, setCourses] = useState("")
+  const [courses, setCourses] = useState(null)
+  const [events, setEvents] = useState("")
   var totalAu = 0
+  const backColor = [
+    "#f37021",
+    "#f37021",
+    "##6aa84f",
+    "#f1c232",
+    "#cc4125",
+    "#cc4125",
+  ]
   useEffect(() => {
     const fetchMods = async () => {
       const response = await fetch(
@@ -24,12 +33,48 @@ const Timetable = () => {
 
       if (response.ok) {
         setCourses(json)
+        setEvents(createEvent(json)) // I JUST MOVED line 67 and 68 here and it works
+        console.log(json)
+        console.log(events)
       } else {
         console.log("error")
       }
     }
     fetchMods()
+    var i = 0
+    const createEvent = (courses) => {
+      var module = []
+      {
+        courses &&
+          courses.map((course) => {
+            // const id = i
+            const text = course.courseCode
+            i = i + 1
+            course.details.map((obj) => {
+              var event = {}
+              event.id = parseInt(obj._id)
+              event.text =
+                text +
+                "\n" +
+                obj.timeStart +
+                "-" +
+                obj.timeEnd +
+                "\n" +
+                obj.venue
+              event.start = convertText(obj.timeStart)
+              event.end = convertText(obj.timeEnd)
+              event.resource = obj.day
+              event.backColor = backColor[i]
+              module.push(event)
+            })
+          })
+      }
+      return module
+    }
+    // console.log(createEvent(courses))
+    // setEvents(createEvent(courses))
   }, [])
+
   {
     courses &&
       courses.map((course) => {
@@ -37,18 +82,49 @@ const Timetable = () => {
         totalAu += course.au
       })
   }
-  var i = 0
+
+  const convertText = (x) => {
+    var intX = parseInt(x)
+    intX = intX - 800
+    var minutes = intX % 100
+    var hours = Math.floor(intX / 100)
+    var strMin = minutes.toString()
+    var strHours = hours.toString()
+    if (strMin === "0") {
+      strMin = strMin.concat("0")
+    }
+
+    if (strHours.length === 1) {
+      strHours = "0" + strHours
+    }
+    var actualTime = "2000-01-01T" + strHours + ":" + strMin + ":00"
+    return actualTime
+  }
+  // var i = 0
   // const createEvent = (courses) => {
-  //   var event = {}
+  //   var module = []
   //   {
   //     courses &&
   //       courses.map((course) => {
-  //         event.id = i
-  //         event.text = course.courseCode
+  //         // const id = i
+  //         const text = course.courseCode
+  //         course.details.map((obj) => {
+  //           var event = {}
+  //           event.id = parseInt(obj._id)
+  //           event.text = text
+  //           event.start = convertText(obj.timeStart)
+  //           event.end = convertText(obj.timeEnd)
+  //           event.resource = obj.day
+  //           event.backColor = "#f37021"
+  //           i = i + 1
+  //           module.push(event)
+  //         })
   //       })
   //   }
-  //   console.log(event)
+  //   return module
   // }
+  // console.log(createEvent(courses))
+  // const events = createEvent(courses)
 
   //console.log(courses)
   //console.log(courses[0].courseCode)
@@ -83,51 +159,57 @@ const Timetable = () => {
   // printAddress()
   // console.log(raw_json)
 
-  const events = [
-    {
-      id: 1,
-      text: "CZ4031",
-      start: "2000-01-01T03:30:00",
-      end: "2000-01-01T05:30:00",
-      backColor: "#fcb711",
-      resource: "mon",
-    },
-    {
-      id: 2,
-      text: "CZ3002",
-      start: "2000-01-01T02:00:00",
-      end: "2000-01-01T04:00:00",
-      backColor: "#f37021",
-      resource: "tue",
-    },
-    {
-      id: 3,
-      text: "MDP",
-      start: "2000-01-01T00:30:00",
-      end: "2000-01-01T02:30:00",
-      backColor: "#f37021",
-      resource: "fri",
-    },
-  ]
+  // const events = [
+  //   {
+  //     id: 1,
+  //     text: "CZ4031\n yolo",
+  //     start: "2000-01-01T00:00:00",
+  //     end: "2000-01-01T05:30:00",
+  //     backColor: "#fcb711",
+  //     resource: "mon",
+  //   },
+  //   {
+  //     id: 2,
+  //     text: "CZ3002",
+  //     start: "2000-01-01T02:00:00",
+  //     end: "2000-01-01T04:00:00",
+  //     backColor: "#f37021",
+  //     resource: "tue",
+  //   },
+  //   {
+  //     id: 3,
+  //     text: "MDP",
+  //     start: "2000-01-01T00:30:00",
+  //     end: "2000-01-01T02:30:00",
+  //     backColor: "#f37021",
+  //     resource: "fri",
+  //   },
+  // ]
 
   const addedMods = []
-  events.map((obj) => {
-    if (!addedMods.includes(obj.text)) {
-      addedMods.push(obj.text)
-    }
-  })
+  {
+    events &&
+      events.map((obj) => {
+        var temp = obj.text.slice(0, 6)
+        if (!addedMods.includes(temp)) {
+          addedMods.push(temp)
+        }
+      })
+  }
 
   return (
     <div className="timetable">
       <SideNavBar></SideNavBar>
       <div className="timetable-cont">
         <div className="col-10">
-          <Calendar
-            events={events}
-            onEventClick={(args) => {
-              console.log(args.e.text())
-            }}
-          ></Calendar>
+          {events && (
+            <Calendar
+              events={events}
+              onEventClick={(args) => {
+                console.log(args.e.text())
+              }}
+            ></Calendar>
+          )}
         </div>
         <div className="col-2 timetable-courses">
           <ul>

@@ -1,10 +1,11 @@
 .calendar_default_event_inner {
     background: #2e78d6;
-    color: #fff;
+    color: black;
     border: none;
     border-radius: 5px;
-    font-size: 10pt;
-    padding: 5px;
+    font-size: 8pt;
+    font-weight: 600;
+    margin: 3px;
     opacity: 0.8;
 }
 .calendar_default_main{
