@@ -21,7 +21,6 @@ const CourseList = ({ course }) => {
           <p><strong>Exam Date</strong></p>
           {/* <p>{course.examDate}</p> need backend to include examDate */}
           <p>26 November 2022</p>
-          <button type="button" className="add-to-tt">Add to Timetable</button>
         </div>
       </div>
       <hr class="solid"></hr>

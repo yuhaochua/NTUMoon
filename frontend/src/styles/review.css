@@ -21,12 +21,8 @@
   padding: 0 10%;
 }
 
-.course-code {
+.indv-course-code {
   color: #1F1D80;
-}
-  
-.course-code:hover {
-  color: #1511f1;
 }
 
 .solid {
@@ -34,6 +30,10 @@
 }
 
 .add-to-tt {
+  background: transparent;
+  border-color: black;
+  color: black;
+  font-family: "Poppins";
   width : 100%;
   border-radius: 5pt;
 }
@@ -66,4 +66,9 @@
 
 .user-rating {
   text-align: center;
+}
+
+.prereq {
+  font-size: large;
+  color:#1F1D80;
 }

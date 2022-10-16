@@ -1,6 +1,6 @@
 import { useEffect,useState }from 'react'
 import { useAuthContext } from "../hooks/useAuthContext"
-import CourseList from '../components/courseList'
+import IndivCourse from '../components/indivCourse'
 import SideNavBar from '../components/sideNavBar'
 import  '../styles/review.css';
 import { useParams } from 'react-router-dom';
@@ -25,7 +25,7 @@ const Review = () => {
   const handleSubmit = async(e) => {
     e.preventDefault()
     await review(courseCode, user.username, userComment)
-    if(userRating != ''){
+    if(userRating !== ''){
       await rating(courseCode, userRating)
     }
     setUserComment('')
@@ -72,7 +72,7 @@ const Review = () => {
           <div>
             <div className="course-detail">
               {course && course.map(course => (
-                courseCode === course.courseCode ? <CourseList course={course} key={course._id} /> : null
+                courseCode === course.courseCode ? <IndivCourse course={course} key={course._id} /> : null
               ))}
             </div>
             <div className="course-reviews container">
@@ -89,8 +89,10 @@ const Review = () => {
                       </div>
                   </div>  
                   <div className="col-3">
-                    <button className="btn btn-primary btn-lg">Add Review</button>
-                  </div>              
+                    <button className="btn btn-primary btn-lg" disabled={reviewIsLoading || ratingIsLoading}>Add Review</button>
+                  </div>
+                  {reviewError && <div className="error">{reviewError}</div>}      
+                  {ratingError && <div className="error">{ratingError}</div>}            
               </form>
               <div className="review">
                 {comments && comments.map(comment => (
