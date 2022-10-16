@@ -12,20 +12,20 @@ const Timetable = () => {
     const response = await fetch(
       "http://localhost:3001/api/courses/getUserCourses",
       {
-        method: "GET",
+        method: "POST",
         Accept: "application/json",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.token}`,
         },
-        // body: JSON.stringify({
-        //   type: type,
-        //   timeStart: timeStart,
-        //   timeEnd: timeEnd,
-        //   day: day,
-        //   venue: venue,
-        //   id: id,
-        // }),
+        body: JSON.stringify({
+          type: type,
+          timeStart: timeStart,
+          timeEnd: timeEnd,
+          day: day,
+          venue: venue,
+          id: id,
+        }),
       }
     )
     const json = await response.json()
@@ -83,7 +83,7 @@ const Timetable = () => {
         <div className="col-2 timetable-courses">
           <ul>
             <label className="pb-3">Courses Registered: </label>
-            {registeredMods.map((mod) => (
+            {addedMods.map((mod) => (
               <li key={mod}>{mod}</li>
             ))}
           </ul>
