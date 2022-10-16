@@ -3,6 +3,7 @@ import { useAuthContext } from "./useAuthContext";
 
 export const useAddToTimetable = () => {
     const [error, setError] = useState(null)
+    const [success, setSuccess] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
     const {user} = useAuthContext()
 
@@ -27,8 +28,9 @@ export const useAddToTimetable = () => {
 
         if(response.ok) {
             setIsLoading(false)
+            setSuccess = true
         }
 
     }
-    return { mod, isLoading, error}
+    return { mod, isLoading, error, success}
 }

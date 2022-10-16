@@ -57,7 +57,6 @@ const course = new Schema({
     courseCode: {
         type: String,
         required: true,
-        unique: true
     },
     index: {
         type: String,
@@ -68,7 +67,7 @@ const course = new Schema({
 const userCourseSchema = new Schema({
     user_id: { //will be from req.user
         type: String,
-        required: true
+        required: true,
     },
     courses: [course]
 })

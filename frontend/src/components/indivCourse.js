@@ -1,7 +1,7 @@
 import { useAddToTimetable } from "../hooks/useAddToTimetable"
 
 const IndivCourse = ({ course }) => {
-    const {mod, error, isLoading} = useAddToTimetable()
+    const {mod, error, isLoading, success} = useAddToTimetable()
   
     const handleSubmit = async(e) => {
       e.preventDefault()
@@ -36,6 +36,7 @@ const IndivCourse = ({ course }) => {
           <p>26 November 2022</p>
           <input type="button" id="addTT" className="add-to-tt" value="Add to Timetable" onClick={handleSubmit} disabled={isLoading}></input>
           {error && <div className="error">{error}</div>}  
+          {success && <div className="success">{success}</div>}
         </div>
       </div>
       <hr class="solid"></hr>
