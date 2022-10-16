@@ -11,7 +11,7 @@ const Timetable = () => {
   const backColor = [
     "#f37021",
     "#f37021",
-    "##6aa84f",
+    "#6aa84f",
     "#f1c232",
     "#cc4125",
     "#cc4125",
@@ -34,8 +34,8 @@ const Timetable = () => {
       if (response.ok) {
         setCourses(json)
         setEvents(createEvent(json)) // I JUST MOVED line 67 and 68 here and it works
-        console.log(json)
-        console.log(events)
+        // console.log(json)
+        // console.log(events)
       } else {
         console.log("error")
       }
@@ -49,6 +49,7 @@ const Timetable = () => {
           courses.map((course) => {
             // const id = i
             const text = course.courseCode
+            const courseIndex = course.index
             i = i + 1
             course.details.map((obj) => {
               var event = {}
@@ -65,6 +66,7 @@ const Timetable = () => {
               event.end = convertText(obj.timeEnd)
               event.resource = obj.day
               event.backColor = backColor[i]
+              event.index = text + "  |  " + courseIndex
               module.push(event)
             })
           })
@@ -93,7 +95,6 @@ const Timetable = () => {
     if (strMin === "0") {
       strMin = strMin.concat("0")
     }
-
     if (strHours.length === 1) {
       strHours = "0" + strHours
     }
@@ -190,7 +191,7 @@ const Timetable = () => {
   {
     events &&
       events.map((obj) => {
-        var temp = obj.text.slice(0, 6)
+        var temp = obj.index
         if (!addedMods.includes(temp)) {
           addedMods.push(temp)
         }
