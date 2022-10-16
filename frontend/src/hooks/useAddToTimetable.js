@@ -28,7 +28,7 @@ export const useAddToTimetable = () => {
 
         if(response.ok) {
             setIsLoading(false)
-            setSuccess = true
+            setSuccess(true)
         }
 
     }
