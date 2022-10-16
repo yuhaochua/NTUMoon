@@ -6,9 +6,7 @@ import { useAuthContext } from "../hooks/useAuthContext"
 const Timetable = () => {
   const { user } = useAuthContext()
   const [courses, setCourses] = useState("")
-
-  var raw_json = []
-
+  var totalAu = 0
   useEffect(() => {
     const fetchMods = async () => {
       const response = await fetch(
@@ -32,7 +30,27 @@ const Timetable = () => {
     }
     fetchMods()
   }, [])
-  console.log(courses[0].courseCode)
+  {
+    courses &&
+      courses.map((course) => {
+        console.log(course.details[0].day)
+        totalAu += course.au
+      })
+  }
+  var i = 0
+  // const createEvent = (courses) => {
+  //   var event = {}
+  //   {
+  //     courses &&
+  //       courses.map((course) => {
+  //         event.id = i
+  //         event.text = course.courseCode
+  //       })
+  //   }
+  //   console.log(event)
+  // }
+
+  //console.log(courses)
   //console.log(courses[0].courseCode)
   // const fetchMods = async () => {
   //   const response = await fetch(
@@ -117,8 +135,9 @@ const Timetable = () => {
             {addedMods.map((mod) => (
               <li key={mod}>{mod}</li>
             ))}
+            <div className="timetable-line"></div>
+            <div className="mt-3">Total AU: {totalAu}</div>
           </ul>
-          <div style={{ background: "black" }}></div>
         </div>
       </div>
     </div>

@@ -28,3 +28,9 @@
 .timetable li {
     padding-bottom: 10px;
 }
+
+.timetable-line{
+  margin-top: 3%;
+  background-color: #CBCBCB;
+  height:2px;
+}
