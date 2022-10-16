@@ -1,16 +1,13 @@
 import SideNavBar from "../components/sideNavBar"
-import React, { Component, useState, useEffect } from "react"
-import { DayPilot, DayPilotCalendar } from "@daypilot/daypilot-lite-react"
+import React, { useState, useEffect } from "react"
 import "../styles/timetable.css"
 import Calendar from "../components/Calendar"
-import { useParams } from "react-router-dom"
 import { useAuthContext } from "../hooks/useAuthContext"
 const Timetable = () => {
   const { user } = useAuthContext()
   const [courses, setCourses] = useState("")
 
   var raw_json = []
-  // let { type, timeStart, timeEnd, day, venue, id } = useParams()
 
   useEffect(() => {
     const fetchMods = async () => {
@@ -35,8 +32,8 @@ const Timetable = () => {
     }
     fetchMods()
   }, [])
-
   console.log(courses[0].courseCode)
+  //console.log(courses[0].courseCode)
   // const fetchMods = async () => {
   //   const response = await fetch(
   //     "http://localhost:3001/api/courses/getUserCourses",
