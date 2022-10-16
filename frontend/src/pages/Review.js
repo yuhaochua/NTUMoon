@@ -23,22 +23,28 @@ const Review = () => {
 
   const[userComment, setUserComment] = useState('')
   const[userRating, setUserRating] = useState('')
+  const[addReviewError, setErrorMsg] = useState('')
   const {review, reviewError, reviewIsLoading} = useAddReview()
   const {rating, ratingError, ratingIsLoading} = useAddRating()
 
   const handleSubmit = async(e) => {
     e.preventDefault()
-    await review(courseCode, user.username, userComment)
-    if(userRating !== ''){
+    if(userComment !== '' && userRating !== ''){
+      await review(courseCode, user.username, userComment)
       await rating(courseCode, userRating)
+      setUserComment('')
+      setErrorMsg('')
+      setUserRating('')
     }
-    setUserComment('')
+    else {
+      setErrorMsg('Both comment and rating have to be filled!')
+    }
   }
 
 
   useEffect(() => {
     const fetchComments = async () => {
-      const response = await fetch('http://localhost:3001/api/comments/', {
+        const response = await fetch('http://localhost:3001/api/comments/', {
         method: 'POST',
         Accept: 'application/json',
         headers: { 
