@@ -13,6 +13,7 @@ class Calendar extends Component {
       businessEndsHour: 20,
       heightSpec: "BusinessHoursNoScroll",
       durationBarVisible: false,
+      cellHeight: 40, // i added this to be able to see the index and type
       onEventClick: async (args) => {
         if (this.first_click) {
           this.props.timetableCallBack(args.e.text())
@@ -21,8 +22,7 @@ class Calendar extends Component {
           this.first_click = !this.first_click
         } else {
           this.props.timetableCallBack(args.e.text())
-          //console.log(this.props.events)
-          //this.loadCalendarData()
+          this.loadCalendarData()
           this.first_click = !this.first_click
         }
       },
