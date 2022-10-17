@@ -137,7 +137,7 @@ const Timetable = () => {
   }
 
   const eventExists = (events, indexNotClicked) => {
-
+    var bool = false
     events &&
     events.map((obj) => {
       var temp2 = obj.index.substring(11,16)
@@ -147,12 +147,10 @@ const Timetable = () => {
       console.log(notClicked)
       if(notClicked == temp2) {
         console.log("true")
-        return true
-      } else {
-        console.log("false")
-        return false
+        bool = true
       }
     })
+    return bool
   }
 
   const onIndexClick = (courses, allCourses, events) => {
