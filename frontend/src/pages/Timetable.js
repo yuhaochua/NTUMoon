@@ -6,7 +6,9 @@ import { useAuthContext } from "../hooks/useAuthContext"
 const Timetable = () => {
   const { user } = useAuthContext()
   const [courses, setCourses] = useState(null)
+  const [allCourses, setAllCourses] = useState(null)
   const [events, setEvents] = useState("")
+  const [idEvent , setId] = useState("")
   var totalAu = 0
   const backColor = [
     "#f37021",
@@ -41,6 +43,17 @@ const Timetable = () => {
       }
     }
     fetchMods()
+
+    const fetchIndex = async () => {
+      const response = await fetch('http://localhost:3001/api/courses/') /* will eventually want to fetch specific course id */
+      const json1 = await response.json()
+
+      if (response.ok) {
+        setAllCourses(json1)
+      }
+    }
+    fetchIndex()
+
     var i = 0
     const createEvent = (courses) => {
       var module = []
@@ -80,11 +93,10 @@ const Timetable = () => {
   {
     courses &&
       courses.map((course) => {
-        console.log(course.details[0].day)
+        // console.log(course.details[0].day)
         totalAu += course.au
       })
   }
-
   const convertText = (x) => {
     var intX = parseInt(x)
     intX = intX - 800
@@ -101,91 +113,6 @@ const Timetable = () => {
     var actualTime = "2000-01-01T" + strHours + ":" + strMin + ":00"
     return actualTime
   }
-  // var i = 0
-  // const createEvent = (courses) => {
-  //   var module = []
-  //   {
-  //     courses &&
-  //       courses.map((course) => {
-  //         // const id = i
-  //         const text = course.courseCode
-  //         course.details.map((obj) => {
-  //           var event = {}
-  //           event.id = parseInt(obj._id)
-  //           event.text = text
-  //           event.start = convertText(obj.timeStart)
-  //           event.end = convertText(obj.timeEnd)
-  //           event.resource = obj.day
-  //           event.backColor = "#f37021"
-  //           i = i + 1
-  //           module.push(event)
-  //         })
-  //       })
-  //   }
-  //   return module
-  // }
-  // console.log(createEvent(courses))
-  // const events = createEvent(courses)
-
-  //console.log(courses)
-  //console.log(courses[0].courseCode)
-  // const fetchMods = async () => {
-  //   const response = await fetch(
-  //     "http://localhost:3001/api/courses/getUserCourses",
-  //     {
-  //       method: "GET",
-  //       Accept: "application/json",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${user.token}`,
-  //       },
-  //     }
-  //   )
-  //   const json = await response.json()
-
-  //   if (response.ok) {
-  //     setCourses(json)
-  //   } else {
-  //     console.log("error")
-  //   }
-  // }
-  // fetchMods()
-  // console.log(courses)
-  // raw_json = fetchMods()
-  // const printAddress = () => {
-  //   fetchMods().then((a) => {
-  //     raw_events.push(a)
-  //   })
-  // }
-  // printAddress()
-  // console.log(raw_json)
-
-  // const events = [
-  //   {
-  //     id: 1,
-  //     text: "CZ4031\n yolo",
-  //     start: "2000-01-01T00:00:00",
-  //     end: "2000-01-01T05:30:00",
-  //     backColor: "#fcb711",
-  //     resource: "mon",
-  //   },
-  //   {
-  //     id: 2,
-  //     text: "CZ3002",
-  //     start: "2000-01-01T02:00:00",
-  //     end: "2000-01-01T04:00:00",
-  //     backColor: "#f37021",
-  //     resource: "tue",
-  //   },
-  //   {
-  //     id: 3,
-  //     text: "MDP",
-  //     start: "2000-01-01T00:30:00",
-  //     end: "2000-01-01T02:30:00",
-  //     backColor: "#f37021",
-  //     resource: "fri",
-  //   },
-  // ]
 
   const addedMods = []
   {
@@ -198,6 +125,64 @@ const Timetable = () => {
       })
   }
 
+  const callbackHandler = (data) => {
+    setId(data)
+    console.log(idEvent)
+    onIndexClick(courses, allCourses)
+  }
+
+  const onIndexClick = (courses, allCourses) => {
+    var idEvent2 = idEvent.substring(0,6)
+
+    var indexClicked = getIndexClicked(courses)
+    var indexArray = []
+    for (var i=0;i<allCourses.length;i++) {
+      if(allCourses[i].courseCode === idEvent2) {
+        for (var j=0;j<allCourses[i].indexes.length;j++) {
+          if(allCourses[i].indexes[j].index != indexClicked) { //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times
+            var coursetemp = allCourses[i]
+            var event = {}
+            event.id = parseInt(coursetemp._id)
+            event.text = 
+              coursetemp.courseCode + 
+              "\n" + 
+              coursetemp.indexes[j].details[0].timeStart + 
+              "-" + 
+              coursetemp.indexes[j].details[0].timeEnd + 
+              "\n" + 
+              coursetemp.indexes[j].details[0].venue
+            event.start = convertText(coursetemp.indexes[j].details[0].timeStart)
+            event.end = convertText(coursetemp.indexes[j].details[0].timeEnd)
+            event.resource = coursetemp.indexes[j].details[0].day
+            event.backColor = backColor[0]
+            event.index = coursetemp.courseCode + "  |  " + coursetemp.indexes[j].index
+
+            indexArray.push(event)
+            // console.log(event)
+            // console.log(typeof event)
+            setEvents((pre) => {
+              return [...pre, event]
+            })
+          }
+        }
+      }
+    }
+  
+    // console.log(indexArray)
+    // console.log(events)
+    // console.log(typeof events[0])
+  }
+
+  const getIndexClicked = (courses) => {
+    var idEvent2 = idEvent.substring(0,6)
+    for (var i=0;i<courses.length;i++) {
+      if(courses[i].courseCode === idEvent2) {
+        return courses[i].index
+      }
+    }
+  }
+
+
   return (
     <div className="timetable">
       <SideNavBar></SideNavBar>
@@ -206,13 +191,11 @@ const Timetable = () => {
           {events && (
             <Calendar
               events={events}
-              onEventClick={(args) => {
-                console.log(args.e.text())
-              }}
+              timetableCallBack = {callbackHandler}
             ></Calendar>
           )}
         </div>
-        <div className="col-2 timetable-courses">
+        <div className="timetable-courses">
           <ul>
             <label className="pb-3">Courses Registered: </label>
             {addedMods.map((mod) => (

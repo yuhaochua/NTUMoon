@@ -13,8 +13,12 @@ class Calendar extends Component {
       heightSpec: "BusinessHoursNoScroll",
       durationBarVisible: false,
       onEventClick: async (args) => {
-        console.log(args.e.text())
+        this.props.timetableCallBack(args.e.text())
+        console.log(this.props.events)
       },
+      autoRefreshInterval: 0.2,
+      autoRefreshMaxCount: 0.2,
+      autoRefreshEnabled: true,
     }
   }
   loadCalendarData() {
@@ -30,6 +34,7 @@ class Calendar extends Component {
     ]
 
     const events = this.props.events
+    console.log("hello")
     this.calendar.update({ startDate, columns, events })
   }
 
