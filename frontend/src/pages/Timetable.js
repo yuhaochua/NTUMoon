@@ -162,26 +162,28 @@ const Timetable = () => {
         for (var j=0;j<allCourses[i].indexes.length;j++) {
           if(allCourses[i].indexes[j].index != indexClicked && !eventExists(events, allCourses[i].indexes[j].index)) { //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times
             console.log("enter if")
-            var coursetemp = allCourses[i]
-            var event = {}
-            event.id = parseInt(coursetemp._id)
-            event.text = 
-              coursetemp.courseCode + 
-              "\n" + 
-              coursetemp.indexes[j].details[0].timeStart + 
-              "-" + 
-              coursetemp.indexes[j].details[0].timeEnd + 
-              "\n" + 
-              coursetemp.indexes[j].details[0].venue
-            event.start = convertText(coursetemp.indexes[j].details[0].timeStart)
-            event.end = convertText(coursetemp.indexes[j].details[0].timeEnd)
-            event.resource = coursetemp.indexes[j].details[0].day
-            event.backColor = backColor[0]
-            event.index = coursetemp.courseCode + "  |  " + coursetemp.indexes[j].index
-
-            indexArray.push(event)
-            events.push(event)
-            console.log(events)
+            for (var k=0;k<allCourses[i].indexes[j].details.length-1;k++) {
+              var coursetemp = allCourses[i]
+              var event = {}
+              event.id = parseInt(coursetemp._id)
+              event.text = 
+                coursetemp.courseCode + 
+                "\n" + 
+                coursetemp.indexes[j].details[k].timeStart + 
+                "-" + 
+                coursetemp.indexes[j].details[k].timeEnd + 
+                "\n" + 
+                coursetemp.indexes[j].details[k].venue
+              event.start = convertText(coursetemp.indexes[j].details[k].timeStart)
+              event.end = convertText(coursetemp.indexes[j].details[k].timeEnd)
+              event.resource = coursetemp.indexes[j].details[k].day
+              event.backColor = backColor[0]
+              event.index = coursetemp.courseCode + "  |  " + coursetemp.indexes[j].index
+  
+              indexArray.push(event)
+              events.push(event)
+              console.log(events)
+            }
             // console.log(event)
             // console.log(typeof event)
             // setEvents((pre) => {
@@ -200,7 +202,7 @@ const Timetable = () => {
   const callbackHandler = (data) => {
     idEvent = data
     console.log(idEvent)
-    console.log(events)
+    console.log(allCourses)
     onIndexClick(courses, allCourses, events)
   }
 
