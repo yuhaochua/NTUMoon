@@ -15,8 +15,9 @@ class Calendar extends Component {
       onEventClick: async (args) => {
         this.props.timetableCallBack(args.e.text())
         console.log(this.props.events)
+        this.loadCalendarData()
       },
-      autoRefreshInterval: 0.2,
+      autoRefreshInterval: 0.3,
       autoRefreshMaxCount: 0.2,
       autoRefreshEnabled: true,
     }

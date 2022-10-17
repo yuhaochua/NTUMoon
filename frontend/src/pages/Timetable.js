@@ -8,7 +8,8 @@ const Timetable = () => {
   const [courses, setCourses] = useState(null)
   const [allCourses, setAllCourses] = useState(null)
   const [events, setEvents] = useState("")
-  const [idEvent , setId] = useState("")
+  // const [idEvent , setId] = useState("")
+  var idEvent
   var totalAu = 0
   const backColor = [
     "#f37021",
@@ -53,7 +54,6 @@ const Timetable = () => {
       }
     }
     fetchIndex()
-
     var i = 0
     const createEvent = (courses) => {
       var module = []
@@ -119,27 +119,51 @@ const Timetable = () => {
     events &&
       events.map((obj) => {
         var temp = obj.index
+
+        var temp2 = obj.index.substring(0,6)
         if (!addedMods.includes(temp)) {
           addedMods.push(temp)
         }
       })
   }
 
-  const callbackHandler = (data) => {
-    setId(data)
-    console.log(idEvent)
-    onIndexClick(courses, allCourses)
+  const getIndexClicked = (courses) => {
+    var idEvent2 = idEvent.substring(0,6)
+    for (var i=0;i<courses.length;i++) {
+      if(courses[i].courseCode === idEvent2) {
+        return courses[i].index
+      }
+    }
   }
 
-  const onIndexClick = (courses, allCourses) => {
-    var idEvent2 = idEvent.substring(0,6)
+  const eventExists = (events, indexNotClicked) => {
 
+    events &&
+    events.map((obj) => {
+      var temp2 = obj.index.substring(11,16)
+      var notClicked = indexNotClicked.toString()
+      console.log("enter")
+      console.log(temp2)
+      console.log(notClicked)
+      if(notClicked == temp2) {
+        console.log("true")
+        return true
+      } else {
+        console.log("false")
+        return false
+      }
+    })
+  }
+
+  const onIndexClick = (courses, allCourses, events) => {
+    var idEvent2 = idEvent.substring(0,6)
     var indexClicked = getIndexClicked(courses)
     var indexArray = []
     for (var i=0;i<allCourses.length;i++) {
-      if(allCourses[i].courseCode === idEvent2) {
+      if(allCourses[i].courseCode == idEvent2) {
         for (var j=0;j<allCourses[i].indexes.length;j++) {
-          if(allCourses[i].indexes[j].index != indexClicked) { //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times
+          if(allCourses[i].indexes[j].index != indexClicked && !eventExists(events, allCourses[i].indexes[j].index)) { //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times
+            console.log("enter if")
             var coursetemp = allCourses[i]
             var event = {}
             event.id = parseInt(coursetemp._id)
@@ -158,11 +182,13 @@ const Timetable = () => {
             event.index = coursetemp.courseCode + "  |  " + coursetemp.indexes[j].index
 
             indexArray.push(event)
+            events.push(event)
+            console.log(events)
             // console.log(event)
             // console.log(typeof event)
-            setEvents((pre) => {
-              return [...pre, event]
-            })
+            // setEvents((pre) => {
+            //   return [...pre, event]
+            // })
           }
         }
       }
@@ -173,13 +199,11 @@ const Timetable = () => {
     // console.log(typeof events[0])
   }
 
-  const getIndexClicked = (courses) => {
-    var idEvent2 = idEvent.substring(0,6)
-    for (var i=0;i<courses.length;i++) {
-      if(courses[i].courseCode === idEvent2) {
-        return courses[i].index
-      }
-    }
+  const callbackHandler = (data) => {
+    idEvent = data
+    console.log(idEvent)
+    console.log(events)
+    onIndexClick(courses, allCourses, events)
   }
 
 
