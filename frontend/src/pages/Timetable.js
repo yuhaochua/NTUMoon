@@ -46,7 +46,9 @@ const Timetable = () => {
     fetchMods()
 
     const fetchIndex = async () => {
-      const response = await fetch('http://localhost:3001/api/courses/') /* will eventually want to fetch specific course id */
+      const response = await fetch(
+        "http://localhost:3001/api/courses/"
+      ) /* will eventually want to fetch specific course id */
       const json1 = await response.json()
 
       if (response.ok) {
@@ -75,6 +77,8 @@ const Timetable = () => {
                 obj.timeEnd +
                 "\n" +
                 obj.venue
+              // "\n" +
+              // courseIndex
               event.start = convertText(obj.timeStart)
               event.end = convertText(obj.timeEnd)
               event.resource = obj.day
@@ -120,7 +124,7 @@ const Timetable = () => {
       events.map((obj) => {
         var temp = obj.index
 
-        var temp2 = obj.index.substring(0,6)
+        var temp2 = obj.index.substring(0, 6)
         if (!addedMods.includes(temp)) {
           addedMods.push(temp)
         }
@@ -128,9 +132,9 @@ const Timetable = () => {
   }
 
   const getIndexClicked = (courses) => {
-    var idEvent2 = idEvent.substring(0,6)
-    for (var i=0;i<courses.length;i++) {
-      if(courses[i].courseCode === idEvent2) {
+    var idEvent2 = idEvent.substring(0, 6)
+    for (var i = 0; i < courses.length; i++) {
+      if (courses[i].courseCode === idEvent2) {
         return courses[i].index
       }
     }
@@ -139,47 +143,58 @@ const Timetable = () => {
   const eventExists = (events, indexNotClicked) => {
     var bool = false
     events &&
-    events.map((obj) => {
-      var temp2 = obj.index.substring(11,16)
-      var notClicked = indexNotClicked.toString()
-      console.log("enter")
-      console.log(temp2)
-      console.log(notClicked)
-      if(notClicked == temp2) {
-        console.log("true")
-        bool = true
-      }
-    })
+      events.map((obj) => {
+        var temp2 = obj.index.substring(11, 16)
+        var notClicked = indexNotClicked.toString()
+        console.log("enter")
+        console.log(temp2)
+        console.log(notClicked)
+        if (notClicked == temp2) {
+          console.log("true")
+          bool = true
+        }
+      })
     return bool
   }
 
   const onIndexClick = (courses, allCourses, events) => {
-    var idEvent2 = idEvent.substring(0,6)
+    var idEvent2 = idEvent.substring(0, 6)
     var indexClicked = getIndexClicked(courses)
     var indexArray = []
-    for (var i=0;i<allCourses.length;i++) {
-      if(allCourses[i].courseCode == idEvent2) {
-        for (var j=0;j<allCourses[i].indexes.length;j++) {
-          if(allCourses[i].indexes[j].index != indexClicked && !eventExists(events, allCourses[i].indexes[j].index)) { //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times
+    for (var i = 0; i < allCourses.length; i++) {
+      if (allCourses[i].courseCode == idEvent2) {
+        for (var j = 0; j < allCourses[i].indexes.length; j++) {
+          if (
+            allCourses[i].indexes[j].index != indexClicked &&
+            !eventExists(events, allCourses[i].indexes[j].index)
+          ) {
+            //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times
             console.log("enter if")
-            for (var k=0;k<allCourses[i].indexes[j].details.length-1;k++) {
+            for (
+              var k = 0;
+              k < allCourses[i].indexes[j].details.length - 1;
+              k++
+            ) {
               var coursetemp = allCourses[i]
               var event = {}
               event.id = parseInt(coursetemp._id)
-              event.text = 
-                coursetemp.courseCode + 
-                "\n" + 
-                coursetemp.indexes[j].details[k].timeStart + 
-                "-" + 
-                coursetemp.indexes[j].details[k].timeEnd + 
-                "\n" + 
+              event.text =
+                coursetemp.courseCode +
+                "\n" +
+                coursetemp.indexes[j].details[k].timeStart +
+                "-" +
+                coursetemp.indexes[j].details[k].timeEnd +
+                "\n" +
                 coursetemp.indexes[j].details[k].venue
-              event.start = convertText(coursetemp.indexes[j].details[k].timeStart)
+              event.start = convertText(
+                coursetemp.indexes[j].details[k].timeStart
+              )
               event.end = convertText(coursetemp.indexes[j].details[k].timeEnd)
               event.resource = coursetemp.indexes[j].details[k].day
               event.backColor = backColor[0]
-              event.index = coursetemp.courseCode + "  |  " + coursetemp.indexes[j].index
-  
+              event.index =
+                coursetemp.courseCode + "  |  " + coursetemp.indexes[j].index
+
               indexArray.push(event)
               events.push(event)
               console.log(events)
@@ -193,19 +208,25 @@ const Timetable = () => {
         }
       }
     }
-  
+
     // console.log(indexArray)
     // console.log(events)
     // console.log(typeof events[0])
   }
-
+  var first_click = true
   const callbackHandler = (data) => {
-    idEvent = data
-    console.log(idEvent)
-    console.log(allCourses)
-    onIndexClick(courses, allCourses, events)
+    if (first_click) {
+      idEvent = data
+      console.log(idEvent)
+      console.log(allCourses)
+      onIndexClick(courses, allCourses, events)
+      first_click = !first_click
+    } else {
+      console.log(data)
+      console.log("second click") //end point for second click
+      first_click = !first_click
+    }
   }
-
 
   return (
     <div className="timetable">
@@ -215,7 +236,7 @@ const Timetable = () => {
           {events && (
             <Calendar
               events={events}
-              timetableCallBack = {callbackHandler}
+              timetableCallBack={callbackHandler}
             ></Calendar>
           )}
         </div>
