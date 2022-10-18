@@ -136,6 +136,28 @@ const Timetable = () => {
         })
       })
   }
+
+  const updateMods = async () => {
+    const response = await fetch(
+      "http://localhost:3001/api/courses/getUserCourses",
+      {
+        method: "GET",
+        Accept: "application/json",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    )
+    const json = await response.json()
+
+    if (response.ok) {
+      dispatchCourses({ type: "FETCH_COURSES", payload: json })
+    } else {
+      console.log("error")
+    }
+  }
+
   const convertText = (x) => {
     // converting timing from backend to match calendar format
     var intX = parseInt(x)
@@ -296,12 +318,16 @@ const Timetable = () => {
         }
       }
     )
+
+    
     console.log("delete mod", coursetemp.courseCode)
     console.log("delete index", registeredIndex)
     await dmod(coursetemp.courseCode, registeredIndex)
     console.log("add mod", coursetemp.courseCode)
     console.log("add index", indexClicked)
     await mod(coursetemp.courseCode, indexClicked)
+
+    updateMods()
 
     // update addedMods
     let spliceIndex

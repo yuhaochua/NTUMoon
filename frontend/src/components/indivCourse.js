@@ -12,6 +12,7 @@ const IndivCourse = ({ course, userCourses }) => {
 
     const handleSubmit = async(e) => {
       e.preventDefault()  
+      console.log(userIndex)
       inUserCourses ? await dmod(course.courseCode, userIndex) : await mod(course.courseCode, course.indexes[0].index)
       await userCourse()
 
