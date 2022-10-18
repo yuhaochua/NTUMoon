@@ -11,7 +11,7 @@ const createToken = (_id) => {
 }
 
 const createResetToken = (email) => {
-    return jwt.sign({email}, process.env.SECRET, { expiresIn: '1s'}) //jwt token for the reseting password, expires in 10minutes
+    return jwt.sign({email}, process.env.SECRET, { expiresIn: '10m'}) //jwt token for the reseting password, expires in 10minutes
 }
 
 //signup
