@@ -5,12 +5,16 @@ import Calendar from "../components/Calendar"
 import { useAuthContext } from "../hooks/useAuthContext"
 import { useAddToTimetable } from "../hooks/useAddToTimetable"
 import { useDeleteFromTimetable } from "../hooks/useDeleteFromTimetable"
+import { useUserCoursesContext } from "../hooks/useUserCoursesContext"
+
 
 const Timetable = () => {
   const { user } = useAuthContext()
   const {mod, error, isLoading, success} = useAddToTimetable()
   const {dmod, delError, isLoadingDel, delSuccess} = useDeleteFromTimetable()
-  const [courses, setCourses] = useState(null) // courses that the user has registered
+  const {userCourses, dispatchCourses} = useUserCoursesContext()
+
+  // const [courses, setCourses] = useState(null) // courses that the user has registered
   const [allCourses, setAllCourses] = useState(null) // all courses in database, to look for index
   const [events, setEvents] = useState("")
   const [addedMods, setAddedMods] = useState(null)
@@ -41,7 +45,8 @@ const Timetable = () => {
       const json = await response.json()
 
       if (response.ok) {
-        setCourses(json)
+        dispatchCourses({type: 'FETCH_COURSES', payload: json})
+        // setCourses(json)
         setEvents(createEvent(json)) // I JUST MOVED line 67 and 68 here and it works
         // console.log(json)
         // console.log(events)
@@ -124,10 +129,11 @@ const Timetable = () => {
   }, [events]) 
 
   {
-    courses &&
-      courses.map((course) => {
-        // console.log(course.details[0].day)
-        totalAu += course.au
+    userCourses &&
+      userCourses.map((obj) => {
+        obj.map(course => {
+          totalAu += course.au
+        })
       })
   }
   const convertText = (x) => { // converting timing from backend to match calendar format
@@ -301,7 +307,7 @@ const Timetable = () => {
       idEvent = data
       console.log(idEvent)
       console.log(allCourses)
-      onIndexClick(courses, allCourses, events,indexClicked)
+      onIndexClick(userCourses, allCourses, events,indexClicked)
       first_click = !first_click
     } else {
       if(data.substring(0,6) != idEvent.substring(0,6)){ // to prevent wrong mod getting clicked on second time
@@ -310,7 +316,7 @@ const Timetable = () => {
       idEvent = data
       // console.log("SECOND CLICK DATA", data.substr(-5))
       console.log("second click") //end point for second click
-      onIndexClick2(courses,allCourses,events,indexClicked) // to remove other indexes from calendar
+      onIndexClick2(userCourses,allCourses,events,indexClicked) // to remove other indexes from calendar
       first_click = !first_click
     }
   }
