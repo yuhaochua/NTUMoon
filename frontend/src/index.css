@@ -3,7 +3,8 @@
 
 /* layout */
 :root {
-  --primary: #1aac83;
+  /* 1aac83 */
+  --primary: #1a6aac;
   --error: #e7195a;
 }
 body {
@@ -19,9 +20,9 @@ header {
   z-index:100;
 }
 header .container {
-  max-width: 1400px;
+  max-width:2500px;
   margin: 0 auto;
-  padding: 10px 20px 10px 150px;
+  padding: 10px 20px 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
