@@ -8,6 +8,9 @@
     height: 900px;
     display: flex;
     flex-direction: row;
+    margin-left:150px;
+    margin-right:5px;
+
 
 }
 

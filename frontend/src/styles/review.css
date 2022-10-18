@@ -4,6 +4,15 @@
   flex-direction: row;
 }
 
+.btn{
+  margin: auto;
+}
+
+.course-reviews {
+  position: absolute;
+  left: 110px;
+}
+
 .review-form {
   padding: 0 10%;
   margin-bottom: 3%;
