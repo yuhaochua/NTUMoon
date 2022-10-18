@@ -301,13 +301,13 @@ const Timetable = () => {
     // update addedMods
     let spliceIndex
     spliceIndex = addedMods.indexOf(event)
-    console.log("splice: ", spliceIndex)
     if (spliceIndex > -1) {
       addedMods.splice(spliceIndex, 1)
-      console.log(addedMods)
     }
 
-    addedMods.push(coursetemp.courseCode + "  |  " + indexClicked)
+    if(!addedMods.includes(coursetemp.courseCode + "  |  " + indexClicked)){
+      addedMods.push(coursetemp.courseCode + "  |  " + indexClicked)
+    }
 
     // console.log(indexArray)
     // console.log(events)
