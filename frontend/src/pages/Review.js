@@ -125,7 +125,7 @@ const Review = () => {
         <SideNavBar></SideNavBar>
           <div>
             <div className="course-detail">
-              {course && course.map(course => (
+              {userCourses && course && course.map(course => (
                 courseCode === course.courseCode ? <IndivCourse course={course} userCourses={userCourses} key={course._id} /> : null
               ))}
             </div>

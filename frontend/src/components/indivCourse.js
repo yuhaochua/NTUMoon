@@ -8,10 +8,12 @@ const IndivCourse = ({ course, userCourses }) => {
     const {dmod, delError, isLoadingDel, delSuccess} = useDeleteFromTimetable()
     const {userCourse, coursesError, isLoadingCourses} = useAddUserCourse()
     const [inUserCourses, setInUserCourses] = useState(false)
+    const [userIndex, setUserIndex] = useState('')
 
     const handleSubmit = async(e) => {
-      e.preventDefault()      
-      inUserCourses ? await dmod(course.courseCode, course.indexes[0].index) : await mod(course.courseCode, course.indexes[0].index)
+      e.preventDefault()  
+      console.log(userIndex)
+      inUserCourses ? await dmod(course.courseCode, userIndex) : await mod(course.courseCode, course.indexes[0].index)
       await userCourse()
 
       setInUserCourses(!inUserCourses)
@@ -27,6 +29,7 @@ const IndivCourse = ({ course, userCourses }) => {
           console.log(usrCourse.courseCode)
           if(course.courseCode === usrCourse.courseCode) {
             setInUserCourses(true)
+            setUserIndex(usrCourse.index)
           }
         })
       ))

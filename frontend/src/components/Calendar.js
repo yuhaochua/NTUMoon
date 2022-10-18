@@ -6,15 +6,30 @@ class Calendar extends Component {
   constructor(props) {
     super(props)
     this.calendarRef = React.createRef()
+    this.first_click = true
     this.state = {
       viewType: "Resources",
       businessBeginsHour: 8,
       businessEndsHour: 20,
       heightSpec: "BusinessHoursNoScroll",
       durationBarVisible: false,
+      cellHeight: 40, // i added this to be able to see the index and type
       onEventClick: async (args) => {
-        console.log(args.e.text())
+        if (this.first_click) {
+          this.props.timetableCallBack(args.e.text())
+          console.log(this.props.events)
+          this.loadCalendarData()
+          this.first_click = !this.first_click
+        } else {
+          this.props.timetableCallBack(args.e.text())
+          this.loadCalendarData()
+          this.first_click = !this.first_click
+        }
       },
+
+      autoRefreshInterval: 0.3,
+      autoRefreshMaxCount: 0.2,
+      autoRefreshEnabled: true,
     }
   }
   loadCalendarData() {
@@ -30,6 +45,7 @@ class Calendar extends Component {
     ]
 
     const events = this.props.events
+    console.log("hello")
     this.calendar.update({ startDate, columns, events })
   }
 
