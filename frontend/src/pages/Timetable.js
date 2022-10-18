@@ -24,7 +24,7 @@ const Timetable = () => {
     CZ4031: "#f37021",
     CZ3002: "#6aa84f",
     CZ4062: "#f1c232",
-    CZ3004: "#cc4125",
+    CZ3004: "#89cff0",
     CZ3005: "#FFB6C1",
   }
   useEffect(() => {
@@ -305,7 +305,7 @@ const Timetable = () => {
       addedMods.splice(spliceIndex, 1)
     }
 
-    if(!addedMods.includes(coursetemp.courseCode + "  |  " + indexClicked)){
+    if (!addedMods.includes(coursetemp.courseCode + "  |  " + indexClicked)) {
       addedMods.push(coursetemp.courseCode + "  |  " + indexClicked)
     }
 
@@ -355,7 +355,15 @@ const Timetable = () => {
         <div className="timetable-courses">
           <ul>
             <label className="pb-3">Courses Registered: </label>
-            {addedMods && addedMods.map((mod) => <li key={mod}>{mod}</li>)}
+            {addedMods &&
+              addedMods.map((mod) => (
+                <li
+                  key={mod}
+                  style={{ backgroundColor: backColor[mod.substring(0, 6)] }}
+                >
+                  {mod}
+                </li>
+              ))}
             <div className="timetable-line"></div>
             <div className="mt-3">Total AU: {totalAu}</div>
           </ul>
