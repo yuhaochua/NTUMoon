@@ -1,5 +1,6 @@
 import { Carousel } from 'antd';
 import  '../styles/accountCarousel.css';
+import { Link } from "react-router-dom"
 
 function AccountCarousel({course}) {
     // const courseRemain = course.map(function(course) {
@@ -15,11 +16,21 @@ function AccountCarousel({course}) {
                 <div>
                     <div className='grid-cont'>
                         {/* <CarouselList course={course}/> */}
-                        <div>CZ3002 Advanced Software Engineering</div>
-                        <div>CZ4062 Computer Security</div>
-                        <div>CZ3004 Multidisciplinary Design Project</div>
-                        <div>CZ3005 Artificial Intelligence</div>
-                        <div>CZ4031 Database System Principles</div>
+                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ3002`} >
+                            <div>CZ3002 Advanced Software Engineering</div>
+                        </Link>
+                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ4062`} >
+                            <div>CZ4062 Computer Security</div>
+                        </Link>
+                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ3004`} >
+                            <div>CZ3004 Multidisciplinary Design Project</div>
+                        </Link>
+                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ3005`} >
+                            <div>CZ3005 Artificial Intelligence</div>
+                        </Link>
+                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ4031`} >
+                            <div>CZ4031 Database System Principles</div>
+                        </Link>
                         <div>CZ3006 Net Centric Computing</div>
                         <div>CZ4153 Blockchain</div>
                         <div>CZ4042 Neural Networks</div>
@@ -27,7 +38,9 @@ function AccountCarousel({course}) {
                     </div>
                 </div>
                 <div>
-                    <div className='grid-cont'>Slide 2</div>
+                    <div className='grid-cont'>
+                        <div>CZ4041 Machine Learning</div>
+                    </div>
                 </div>
                 <div>
                     <div className='grid-cont'>Slide 3</div>
