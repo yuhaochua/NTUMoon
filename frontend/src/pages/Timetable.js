@@ -290,12 +290,17 @@ const Timetable = () => {
 
     // DELETE AND ADD BACK IN BACKEND
     let registeredIndex
-    courses.map((course) => {
-      if (course.courseCode === coursetemp.courseCode) {
-        registeredIndex = course.index
+    addedMods.map(course => {
+        if (course.substr(0,6) === coursetemp.courseCode) {
+          registeredIndex = course.substr(-5)
+        }
       }
-    })
+    )
+    console.log("delete mod", coursetemp.courseCode)
+    console.log("delete index", registeredIndex)
     await dmod(coursetemp.courseCode, registeredIndex)
+    console.log("add mod", coursetemp.courseCode)
+    console.log("add index", indexClicked)
     await mod(coursetemp.courseCode, indexClicked)
 
     // update addedMods
