@@ -15,7 +15,7 @@ export const userCoursesReducer = (state, action) => {
 
 export const UserCoursesContextProvider = ({ children }) => {
     const [state, dispatchCourses] = useReducer(userCoursesReducer, {
-        comments: null
+        userCourses: null
     })
 
     return (

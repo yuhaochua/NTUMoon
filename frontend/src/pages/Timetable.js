@@ -49,6 +49,8 @@ const Timetable = () => {
         // console.log(json)
         // console.log(events)
       } else {
+        dispatchCourses({ type: "FETCH_COURSES", payload: null })
+        setEvents(null)
         console.log("error")
       }
     }
@@ -131,7 +133,7 @@ const Timetable = () => {
   {
     userCourses &&
       userCourses.map((obj) => {
-        obj.map((course) => {
+        obj && obj.map((course) => {
           totalAu += course.au
         })
       })

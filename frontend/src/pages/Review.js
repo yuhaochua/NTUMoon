@@ -87,7 +87,10 @@ const Review = () => {
 
       if (response.ok) {
         dispatchCourses({type: 'FETCH_COURSES', payload: json})
-        console.log(json)
+        console.log("usercourses", json)
+      }else{
+        dispatchCourses({type: 'FETCH_COURSES', payload: null})
+        console.log("error", json)
       }
     }
     fetchUserCourses()
