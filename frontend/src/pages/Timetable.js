@@ -46,12 +46,9 @@ const Timetable = () => {
         dispatchCourses({ type: "FETCH_COURSES", payload: json })
         // setCourses(json)
         setEvents(createEvent(json)) // I JUST MOVED line 67 and 68 here and it works
-        // console.log(json)
-        // console.log(events)
       } else {
         dispatchCourses({ type: "FETCH_COURSES", payload: null })
         setEvents(null)
-        console.log("error")
       }
     }
     fetchMods()
@@ -156,7 +153,6 @@ const Timetable = () => {
     if (response.ok) {
       dispatchCourses({ type: "FETCH_COURSES", payload: json })
     } else {
-      console.log("error")
     }
   }
 
@@ -194,11 +190,7 @@ const Timetable = () => {
         if (obj.type !== "lec") {
           var temp2 = obj.index.substring(11, 16) // to retrieve index
           var notClicked = indexNotClicked.toString()
-          console.log("enter")
-          console.log(temp2)
-          console.log(notClicked)
           if (notClicked == temp2) {
-            console.log("true")
             bool = true
           }
         }
@@ -221,7 +213,6 @@ const Timetable = () => {
             !eventExists(events, allCourses[i].indexes[j].index) // check if the calendar already has the index
           ) {
             //this if statement is buggy because it does not consider if a course has been added to an event after clicking the same mod a few times. ***SOLVED***
-            console.log("enter if")
             for (
               var k = 0;
               k < allCourses[i].indexes[j].details.length - 1; // loops through the lab and tut
@@ -252,21 +243,12 @@ const Timetable = () => {
 
               indexArray.push(event) // what is this for??
               events.push(event) // add the new(not exactly new but more like alternate) index into calendar
-              console.log("events after FIRST CLICK", events)
             }
-            // console.log(event)
-            // console.log(typeof event)
-            // setEvents((pre) => {
-            //   return [...pre, event]
-            // })
           }
         }
       }
     }
 
-    // console.log(indexArray)
-    // console.log(events)
-    // console.log(typeof events[0])
   }
 
   const onIndexClick2 = async (courses, allCourses, events, indexClicked) => {
@@ -305,7 +287,6 @@ const Timetable = () => {
                 // only remove if there is something to remove
                 events.splice(index, 1)
               }
-              console.log("events after SECOND CLICK", events)
             }
           }
         }
@@ -322,11 +303,7 @@ const Timetable = () => {
     )
 
     
-    console.log("delete mod", coursetemp.courseCode)
-    console.log("delete index", registeredIndex)
     await dmod(coursetemp.courseCode, registeredIndex)
-    console.log("add mod", coursetemp.courseCode)
-    console.log("add index", indexClicked)
     await mod(coursetemp.courseCode, indexClicked)
 
     updateMods()
@@ -342,9 +319,6 @@ const Timetable = () => {
       addedMods.push(coursetemp.courseCode + "  |  " + indexClicked)
     }
 
-    // console.log(indexArray)
-    // console.log(events)
-    // console.log(typeof events[0])
   }
 
   var first_click = true
@@ -356,8 +330,6 @@ const Timetable = () => {
     }
     if (first_click) {
       idEvent = data
-      console.log(idEvent)
-      console.log(allCourses)
       onIndexClick(userCourses, allCourses, events, indexClicked)
       first_click = !first_click
     } else {
@@ -366,8 +338,6 @@ const Timetable = () => {
         return
       }
       idEvent = data
-      // console.log("SECOND CLICK DATA", data.substr(-5))
-      console.log("second click") //end point for second click
       onIndexClick2(userCourses, allCourses, events, indexClicked) // to remove other indexes from calendar
       first_click = !first_click
     }

@@ -12,7 +12,6 @@ const Home = () => {
 
   const updateInput = async (input) => {
     const filtered = coursesDefault.filter(course => {
-      console.log(course.courseTitle)
      return course.courseTitle.toLowerCase().includes(input.toLowerCase())
     })
     setInput(input);
@@ -21,14 +20,12 @@ const Home = () => {
 
 useEffect(() => {
   const fetchCourses = async () => {
-    console.log("enter useeffect")
     const response = await fetch('https://ntumoon-api.onrender.com/api/courses/')
     const json = await response.json()
 
     if (response.ok) {
       setCourses(json)
       setCoursesDefault(json)
-      console.log(coursesDefault)
     }
   }
   fetchCourses()

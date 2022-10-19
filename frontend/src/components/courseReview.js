@@ -24,7 +24,6 @@ const CourseReview = ({ comment, courseCode, reviews }) => {
     }
     const handleSubmitEdit = async(e) => {
         // e.preventDefault()
-        console.log(userComment)
         await reviewEdit(courseCode, comment._id, userComment)
       }
 
@@ -35,7 +34,6 @@ const CourseReview = ({ comment, courseCode, reviews }) => {
             okType: "danger",
             onOk: () => {
                 handleSubmit();
-                console.log("entered on delete")
             },
         });
     };
@@ -79,7 +77,6 @@ const CourseReview = ({ comment, courseCode, reviews }) => {
                             }}
                             onOk={() => {
                                 handleSubmitEdit();
-                                console.log("entered onOK")
                                 setOpen(false);
                             }}
                         >
@@ -115,7 +112,6 @@ const CourseReview = ({ comment, courseCode, reviews }) => {
                         <DeleteOutlined
                             // onClick={handleSubmit}
                             onClick={() => {
-                                console.log("hihi")
                                 onDelete();
                               }}
                             style={{color: "red"}}

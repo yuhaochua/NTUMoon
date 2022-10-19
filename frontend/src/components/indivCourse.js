@@ -12,7 +12,6 @@ const IndivCourse = ({ course, userCourses }) => {
 
     const handleSubmit = async(e) => {
       e.preventDefault()  
-      console.log(userIndex)
       inUserCourses ? await dmod(course.courseCode, userIndex) : await mod(course.courseCode, course.indexes[0].index)
       await userCourse()
 
@@ -26,7 +25,6 @@ const IndivCourse = ({ course, userCourses }) => {
     useEffect(() => {
       userCourses && userCourses.map(obj => (
         obj && obj.map(usrCourse => {
-          console.log(usrCourse.courseCode)
           if(course.courseCode === usrCourse.courseCode) {
             setInUserCourses(true)
             setUserIndex(usrCourse.index)

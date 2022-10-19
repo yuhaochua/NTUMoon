@@ -59,7 +59,6 @@ const Review = () => {
 
       if (response.ok) {
         dispatch({type: 'SET_COMMENTS', payload: json})
-        console.log(json)
       }
     }
     fetchComments()
@@ -87,10 +86,8 @@ const Review = () => {
 
       if (response.ok) {
         dispatchCourses({type: 'FETCH_COURSES', payload: json})
-        console.log("usercourses", json)
       }else{
         dispatchCourses({type: 'FETCH_COURSES', payload: null})
-        console.log("error", json)
       }
     }
     fetchUserCourses()
@@ -111,9 +108,6 @@ const Review = () => {
       if(i>0){
         setAvgRating(avgRating)
       }
-      console.log("avg rating: ", avgRating)
-      console.log("ratingSum: ", ratingSum)
-      console.log("average rating: ", averageRating)
     }
 
     if(comments){

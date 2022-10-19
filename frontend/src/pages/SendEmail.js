@@ -8,7 +8,6 @@ const ResetPassword = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log("enter send email")
     
         const signup = async () => {
             setIsLoading(true)
