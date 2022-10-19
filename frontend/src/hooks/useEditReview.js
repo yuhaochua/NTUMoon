@@ -13,7 +13,7 @@ export const useEditReview = () => {
         setIsLoadingEdit(true)
         setErrorEdit(null)
 
-        const response = await fetch('http://localhost:3001/api/comments/editComment', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/comments/editComment', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

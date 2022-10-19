@@ -44,7 +44,7 @@ const Review = () => {
 
   useEffect(() => {
     const fetchComments = async () => {
-        const response = await fetch('http://localhost:3001/api/comments/', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/comments/', {
         method: 'POST',
         Accept: 'application/json',
         headers: { 
@@ -65,7 +65,7 @@ const Review = () => {
     fetchComments()
 
     const fetchCourse = async () => {
-      const response = await fetch('http://localhost:3001/api/courses/') /* will eventually want to fetch specific course id */
+      const response = await fetch('https://ntumoon-api.onrender.com/api/courses/') /* will eventually want to fetch specific course id */
       const json = await response.json()
 
       if (response.ok) {
@@ -75,7 +75,7 @@ const Review = () => {
     fetchCourse()
 
     const fetchUserCourses = async () => {
-      const response = await fetch('http://localhost:3001/api/courses/getUserCourses', {
+      const response = await fetch('https://ntumoon-api.onrender.com/api/courses/getUserCourses', {
         method: 'GET',
         Accept: 'application/json',
         headers: { 

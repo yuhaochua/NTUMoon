@@ -22,7 +22,7 @@ const Home = () => {
 useEffect(() => {
   const fetchCourses = async () => {
     console.log("enter useeffect")
-    const response = await fetch('http://localhost:3001/api/courses/')
+    const response = await fetch('https://ntumoon-api.onrender.com/api/courses/')
     const json = await response.json()
 
     if (response.ok) {

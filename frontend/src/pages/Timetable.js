@@ -30,7 +30,7 @@ const Timetable = () => {
   useEffect(() => {
     const fetchMods = async () => {
       const response = await fetch(
-        "http://localhost:3001/api/courses/getUserCourses",
+        "https://ntumoon-api.onrender.com/api/courses/getUserCourses",
         {
           method: "GET",
           Accept: "application/json",
@@ -58,7 +58,7 @@ const Timetable = () => {
 
     const fetchIndex = async () => {
       const response = await fetch(
-        "http://localhost:3001/api/courses/"
+        "https://ntumoon-api.onrender.com/api/courses/"
       ) /* will eventually want to fetch specific course id */
       const json1 = await response.json()
 
@@ -141,7 +141,7 @@ const Timetable = () => {
 
   const updateMods = async () => {
     const response = await fetch(
-      "http://localhost:3001/api/courses/getUserCourses",
+      "https://ntumoon-api.onrender.com/api/courses/getUserCourses",
       {
         method: "GET",
         Accept: "application/json",

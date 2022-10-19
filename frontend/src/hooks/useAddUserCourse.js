@@ -12,7 +12,7 @@ export const useAddUserCourse = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('http://localhost:3001/api/courses/getUserCourses', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/courses/getUserCourses', {
         method: 'GET',
         Accept: 'application/json',
         headers: { 

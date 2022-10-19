@@ -12,7 +12,7 @@ export const useAddToTimetable = () => {
         setError(null)
         setSuccess(null)
 
-        const response = await fetch('http://localhost:3001/api/courses/addCourse', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/courses/addCourse', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

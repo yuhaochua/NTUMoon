@@ -12,7 +12,7 @@ export const useDeleteFromTimetable = () => {
         setError(null)
         setSuccess(null)
 
-        const response = await fetch('http://localhost:3001/api/courses/deleteCourse', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/courses/deleteCourse', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

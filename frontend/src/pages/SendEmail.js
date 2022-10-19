@@ -15,7 +15,7 @@ const ResetPassword = () => {
             setError(null)
             setSuccess(null)
     
-            const response = await fetch('http://localhost:3001/api/user/sendEmail', {
+            const response = await fetch('https://ntumoon-api.onrender.com/api/user/sendEmail', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({email})

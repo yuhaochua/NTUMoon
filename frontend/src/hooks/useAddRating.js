@@ -12,7 +12,7 @@ export const useAddRating = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('http://localhost:3001/api/comments/addReview', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/comments/addReview', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

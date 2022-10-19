@@ -12,7 +12,7 @@ export const useDeleteReview = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('http://localhost:3001/api/comments/deleteComment', {
+        const response = await fetch('https://ntumoon-api.onrender.com/api/comments/deleteComment', {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',

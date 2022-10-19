@@ -27,7 +27,7 @@ const Account = () => {
 
   useEffect(() => {
       const fetchCourse = async () => {
-        const response = await fetch('http://localhost:3001/api/courses/') /* will eventually want to fetch specific course id */
+        const response = await fetch('https://ntumoon-api.onrender.com/api/courses/') /* will eventually want to fetch specific course id */
         const json = await response.json()
     
         if (response.ok) {
