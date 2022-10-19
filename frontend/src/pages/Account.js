@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import Carousel from 'react-bootstrap/Carousel';
 import { Carousel } from 'antd';
 import AccountCarousel from '../components/accountCarousel';
-
+import AccountCarousel2 from '../components/accountCarousel2';
 
 const contentStyle = {
   height: '160px',
@@ -54,7 +54,7 @@ const Account = () => {
                 <div className='mt-3 coresRemain-cont'>Cores Remaining: 41/84</div>
                 <AccountCarousel course={course} ></AccountCarousel>
                 <div className='pt-5 coresRemain-cont'>Electives Remaining: 19/56</div>
-                <AccountCarousel></AccountCarousel>
+                <AccountCarousel2></AccountCarousel2>
 
             </div>
         </div>
