@@ -19,9 +19,7 @@ function AccountCarousel({course}) {
                         <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ3002`} >
                             <div>CZ3002 Advanced Software Engineering</div>
                         </Link>
-                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ4062`} >
-                            <div>CZ4062 Computer Security</div>
-                        </Link>
+                        <div>CZ4042 Neural Networks</div>
                         <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ3004`} >
                             <div>CZ3004 Multidisciplinary Design Project</div>
                         </Link>
@@ -33,7 +31,9 @@ function AccountCarousel({course}) {
                         </Link>
                         <div>CZ3006 Net Centric Computing</div>
                         <div>CZ4153 Blockchain</div>
-                        <div>CZ4042 Neural Networks</div>
+                        <Link style={{ textDecoration: 'none', color: "black" }} to={`/review/CZ4062`} >
+                            <div>CZ4062 Computer Security</div>
+                        </Link>
                         <div>CZ4010 Applied Cryptography</div>
                     </div>
                 </div>
@@ -41,12 +41,6 @@ function AccountCarousel({course}) {
                     <div className='grid-cont'>
                         <div>CZ4041 Machine Learning</div>
                     </div>
-                </div>
-                <div>
-                    <div className='grid-cont'>Slide 3</div>
-                </div>
-                <div>
-                    <div className='grid-cont'>Slide 4</div>
                 </div>
             </Carousel>
         </div>
