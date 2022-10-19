@@ -105,6 +105,7 @@ const Review = () => {
         })
       ))
       let avgRating = ratingSum / i
+      avgRating = avgRating.toFixed(2)
       if(i>0){
         setAvgRating(avgRating)
       }
