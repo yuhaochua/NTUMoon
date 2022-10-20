@@ -129,14 +129,14 @@ const sendEmail = async(req,res) => {
         emailToken = await ResetPassword.findOne({email: email})
         const msg = {
             to: email, // Change to your recipient
-            from: 'NTUMoon@meowser.page', // Change to your verified sender
+            from: 'soldiero3of@gmail.com', // Change to your verified sender
             subject: 'NTUMoon Reset Password',
             text: 'At NTUMoon, the security of your personal data and log-in details is our first priority. Hi you have requested for a password change, the link is valid for 10 minutes.',
             html: `<p>At NTUMoon, the security of your personal data and log-in details is our first priority.\n</p>
             <p>Hi you have requested for a password change, the link is valid for 10 minutes.\n</p>
             <p>Please enter this token on the password reset page.\n</p>
             <p>${emailToken.token}\n</p>
-            <a href="http://localhost:3000/resetPassword">Click here to reset Password</a>`,
+            <a href="https://ntumoon.onrender.com/resetPassword">Click here to reset Password</a>`,
         }
         const sendEmail = sgMail.send(msg)
         
